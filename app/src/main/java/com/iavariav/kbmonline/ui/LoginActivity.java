@@ -30,7 +30,7 @@ public class LoginActivity extends AppCompatActivity {
                 loginPresenter.login(LoginActivity.this,
                         edtNik.getText().toString().trim(),
                         edtPassword.getText().toString().trim());
-                finishAffinity();
+//                finishAffinity();
             }
         });
     }

@@ -14,16 +14,25 @@ import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
 import com.iavariav.kbmonline.R;
+import com.iavariav.kbmonline.ui.atasan.fragment.AprovalFragment;
+import com.iavariav.kbmonline.ui.atasan.fragment.HistoriAtasanFragment;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentManager;
+import androidx.viewpager.widget.ViewPager;
 
 import android.view.Menu;
+import android.widget.FrameLayout;
 
 public class AtasanActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private FragmentManager fragmentManager;
+    private FrameLayout fmViewPagerNav;
+    private ViewPager viewpager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +55,10 @@ public class AtasanActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+
+        fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.fm_view_pager_nav, new AprovalFragment()).commit();
+        getSupportActionBar().setTitle("Data KBM-ONLINE");
     }
 
     @Override
@@ -86,19 +99,25 @@ public class AtasanActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_home) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_tools) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        if (id == R.id.data_kbm) {
+            fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.fm_view_pager_nav, new AprovalFragment()).commit();
+            getSupportActionBar().setTitle("Data KBM-ONLINE");
         }
+        else if (id == R.id.histori) {
+            fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.fm_view_pager_nav, new HistoriAtasanFragment()).commit();
+            getSupportActionBar().setTitle("Histori KBM-ONLINE");
+        }
+//        else if (id == R.id.nav_slideshow) {
+//
+//        } else if (id == R.id.nav_tools) {
+//
+//        } else if (id == R.id.nav_share) {
+//
+//        } else if (id == R.id.nav_send) {
+//
+//        }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
