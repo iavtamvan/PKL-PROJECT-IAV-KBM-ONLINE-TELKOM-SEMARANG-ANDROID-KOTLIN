@@ -1,0 +1,50 @@
+package com.iavariav.kbmonline.ui;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.os.Handler;
+import android.text.TextUtils;
+import android.widget.Toast;
+
+import com.iavariav.kbmonline.R;
+import com.iavariav.kbmonline.helper.Config;
+import com.iavariav.kbmonline.ui.atasan.AtasanActivity;
+
+public class SplashActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_splash);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                SharedPreferences sp = getSharedPreferences(Config.SHARED_PREF_NAME, MODE_PRIVATE);
+                String username = sp.getString(Config.SHARED_PREF_USERNAME, "");
+                String rule = sp.getString(Config.SHARED_PREF_RULE, "");
+
+                // TODO jika belum masuk ke LoginActivity
+                if (username.equalsIgnoreCase("") || TextUtils.isEmpty(username)){
+                    finishAffinity();
+                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                }
+                // TODO jika sudah nantinya akan masuk ke Home
+                else {
+                    if (rule.contains("pimpinan")){
+                        finishAffinity();
+                        startActivity(new Intent(getApplicationContext(), AtasanActivity.class));
+                    } else if (rule.contains("user")){
+                        Toast.makeText(SplashActivity.this, "rule : " + rule, Toast.LENGTH_SHORT).show();
+//                        finishAffinity();
+//                        startActivity(new Intent(getApplicationContext(), ValidatorActivity.class));
+                    }
+
+                }
+            }
+        }, 2000);
+    }
+}

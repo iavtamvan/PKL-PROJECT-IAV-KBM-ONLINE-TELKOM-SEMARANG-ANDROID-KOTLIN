@@ -14,7 +14,11 @@ import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
 import com.iavariav.kbmonline.R;
+import com.iavariav.kbmonline.helper.Config;
 import com.iavariav.kbmonline.ui.atasan.fragment.AprovalFragment;
+import com.iavariav.kbmonline.ui.atasan.fragment.DaftarUserFragment;
+import com.iavariav.kbmonline.ui.atasan.fragment.DataMobilFragment;
+import com.iavariav.kbmonline.ui.atasan.fragment.DataUserFragment;
 import com.iavariav.kbmonline.ui.atasan.fragment.HistoriAtasanFragment;
 
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -109,15 +113,25 @@ public class AtasanActivity extends AppCompatActivity
             fragmentManager.beginTransaction().replace(R.id.fm_view_pager_nav, new HistoriAtasanFragment()).commit();
             getSupportActionBar().setTitle("Histori KBM-ONLINE");
         }
-//        else if (id == R.id.nav_slideshow) {
-//
-//        } else if (id == R.id.nav_tools) {
-//
-//        } else if (id == R.id.nav_share) {
-//
-//        } else if (id == R.id.nav_send) {
-//
-//        }
+        else if (id == R.id.daftar_user) {
+            fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.fm_view_pager_nav, new DaftarUserFragment()).commit();
+            getSupportActionBar().setTitle("Daftar User");
+        }
+        else if (id == R.id.data_user) {
+            fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.fm_view_pager_nav, new DataUserFragment()).commit();
+            getSupportActionBar().setTitle("Data User");
+        }
+        else if (id == R.id.data_mobil) {
+            fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.fm_view_pager_nav, new DataMobilFragment()).commit();
+            getSupportActionBar().setTitle("Data Mobil");
+        }
+        else if (id == R.id.logout) {
+            Config.logout(AtasanActivity.this);
+            finishAffinity();
+        }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

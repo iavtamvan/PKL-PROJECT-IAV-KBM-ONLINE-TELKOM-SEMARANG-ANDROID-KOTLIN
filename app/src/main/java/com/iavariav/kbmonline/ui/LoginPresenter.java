@@ -35,7 +35,7 @@ public class LoginPresenter {
                             editor.apply();
 
                             String rule= loginModel.getRule();
-                            if (rule.contains("atasan")){
+                            if (rule.contains("pimpinan")){
                                 context.startActivity(new Intent(context, AtasanActivity.class));
                             } else if (rule.contains("user")){
 //                                context.startActivity(new Intent(context, ));

@@ -19,7 +19,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:orientation="vertical"
                 android:background="@android:color/holo_red_dark">
                 <TextView
@@ -384,37 +384,32 @@
                                         android:layout_height="1dp"
                                         android:background="@color/colorView"/>
                                 </LinearLayout>
-
                             </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="30dp"
-                                android:orientation="horizontal"
-                                android:layout_margin="5dp">
-
-                                <ImageView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1"
-                                    android:src="@drawable/disetujui"
-                                    android:id="@+id/iv_disetujui"/>
-                                <ImageView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1"
-                                    android:src="@drawable/ditolak"
-                                    android:id="@+id/iv_ditolak"/>
-
-                            </LinearLayout>
-
-
-
                         </LinearLayout>
-
                     </ScrollView>
 
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:orientation="horizontal"
+                    android:layout_margin="5dp">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:src="@drawable/disetujui"
+                        android:id="@+id/iv_disetujui"/>
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:src="@drawable/ditolak"
+                        android:id="@+id/iv_ditolak"/>
+
+                </LinearLayout>
+
 
 
             </LinearLayout>
