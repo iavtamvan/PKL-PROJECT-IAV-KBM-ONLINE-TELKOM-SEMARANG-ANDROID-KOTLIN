@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.iavariav.kbmonline.R;
-import com.iavariav.kbmonline.model.AtasanAprovalModel;
+import com.iavariav.kbmonline.model.PemesananModel;
 import com.iavariav.kbmonline.rest.ApiConfig;
 import com.iavariav.kbmonline.rest.ApiService;
 import com.iavariav.kbmonline.ui.atasan.adapter.AtasanAprovalAdapter;
@@ -30,7 +30,7 @@ public class AprovalFragment extends Fragment {
     private RecyclerView rv;
 
     private AtasanAprovalAdapter atasanAprovalAdapter;
-    private ArrayList<AtasanAprovalModel> atasanAprovalModels;
+    private ArrayList<PemesananModel> PemesananModels;
 
 
     public AprovalFragment() {
@@ -45,7 +45,7 @@ public class AprovalFragment extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_aproval, container, false);
         initView(view);
 
-        atasanAprovalModels = new ArrayList<>();
+        PemesananModels = new ArrayList<>();
         getData();
 
         return view;
@@ -54,12 +54,12 @@ public class AprovalFragment extends Fragment {
     private void getData() {
         ApiService apiService = ApiConfig.getApiService();
         apiService.getAllData("getAllDataPemesanan")
-                .enqueue(new Callback<ArrayList<AtasanAprovalModel>>() {
+                .enqueue(new Callback<ArrayList<PemesananModel>>() {
                     @Override
-                    public void onResponse(Call<ArrayList<AtasanAprovalModel>> call, Response<ArrayList<AtasanAprovalModel>> response) {
+                    public void onResponse(Call<ArrayList<PemesananModel>> call, Response<ArrayList<PemesananModel>> response) {
                         if (response.isSuccessful()){
-                            atasanAprovalModels = response.body();
-                            atasanAprovalAdapter = new AtasanAprovalAdapter(getActivity(), atasanAprovalModels);
+                            PemesananModels = response.body();
+                            atasanAprovalAdapter = new AtasanAprovalAdapter(getActivity(), PemesananModels);
                             rv.setLayoutManager(new LinearLayoutManager(getActivity()));
                             rv.setAdapter(atasanAprovalAdapter);
                             atasanAprovalAdapter.notifyDataSetChanged();
@@ -67,7 +67,7 @@ public class AprovalFragment extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(Call<ArrayList<AtasanAprovalModel>> call, Throwable t) {
+                    public void onFailure(Call<ArrayList<PemesananModel>> call, Throwable t) {
 
                         Toast.makeText(getActivity(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
                     }

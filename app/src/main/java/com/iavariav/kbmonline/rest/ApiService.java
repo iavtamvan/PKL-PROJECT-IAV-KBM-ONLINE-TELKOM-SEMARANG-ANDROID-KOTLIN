@@ -1,9 +1,9 @@
 package com.iavariav.kbmonline.rest;
 
-import com.iavariav.kbmonline.model.AtasanAprovalModel;
 import com.iavariav.kbmonline.model.ErrorModel;
 import com.iavariav.kbmonline.model.LoginModel;
 import com.iavariav.kbmonline.model.MobilModel;
+import com.iavariav.kbmonline.model.PemesananModel;
 import com.iavariav.kbmonline.model.UserModel;
 
 import java.util.ArrayList;
@@ -23,11 +23,11 @@ public interface ApiService {
 
 
     @GET("api_get.php")
-    Call<ArrayList<AtasanAprovalModel>> getAllData(
+    Call<ArrayList<PemesananModel>> getAllData(
             @Query("change") String change
     );
     @GET("api_get.php")
-    Call<ArrayList<AtasanAprovalModel>> getDataHistoriAtasan(
+    Call<ArrayList<PemesananModel>> getDataHistoriAtasan(
             @Query("change") String change,
             @Query("ID_USER_ATASAN") String idUser
     );
@@ -39,6 +39,12 @@ public interface ApiService {
     @GET("api_get.php")
     Call<ArrayList<MobilModel>> getDataMobil(
             @Query("change") String change
+    );
+
+    @GET("api_get.php")
+    Call<ArrayList<PemesananModel>> getDataUserHistoriPemesanan(
+            @Query("change") String change,
+            @Query("NAMA_PEMESAN") String NAMA_PEMESAN
     );
 
     @FormUrlEncoded

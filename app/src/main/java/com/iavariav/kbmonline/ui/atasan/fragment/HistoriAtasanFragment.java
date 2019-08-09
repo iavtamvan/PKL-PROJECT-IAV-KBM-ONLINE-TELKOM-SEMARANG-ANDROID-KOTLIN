@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.iavariav.kbmonline.R;
 import com.iavariav.kbmonline.helper.Config;
-import com.iavariav.kbmonline.model.AtasanAprovalModel;
+import com.iavariav.kbmonline.model.PemesananModel;
 import com.iavariav.kbmonline.rest.ApiConfig;
 import com.iavariav.kbmonline.rest.ApiService;
 import com.iavariav.kbmonline.ui.atasan.adapter.AtasanHistoriAprovalAdapter;
@@ -32,7 +32,7 @@ import retrofit2.Response;
 public class HistoriAtasanFragment extends Fragment {
     private RecyclerView rv;
     private AtasanHistoriAprovalAdapter atasanHistoriAprovalAdapter;
-    private ArrayList<AtasanAprovalModel> atasanAprovalModels;
+    private ArrayList<PemesananModel> PemesananModels;
 
     private String idUser;
 
@@ -51,7 +51,7 @@ public class HistoriAtasanFragment extends Fragment {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
         idUser = sharedPreferences.getString(Config.SHARED_PREF_ID, "");
 
-        atasanAprovalModels = new ArrayList<>();
+        PemesananModels = new ArrayList<>();
         getDatas();
 
         return view;
@@ -60,12 +60,12 @@ public class HistoriAtasanFragment extends Fragment {
     private void getDatas() {
         ApiService apiService = ApiConfig.getApiService();
         apiService.getDataHistoriAtasan("getHistoriAtasan", idUser)
-                .enqueue(new Callback<ArrayList<AtasanAprovalModel>>() {
+                .enqueue(new Callback<ArrayList<PemesananModel>>() {
                     @Override
-                    public void onResponse(Call<ArrayList<AtasanAprovalModel>> call, Response<ArrayList<AtasanAprovalModel>> response) {
+                    public void onResponse(Call<ArrayList<PemesananModel>> call, Response<ArrayList<PemesananModel>> response) {
                         if (response.isSuccessful()){
-                            atasanAprovalModels = response.body();
-                            atasanHistoriAprovalAdapter = new AtasanHistoriAprovalAdapter(getActivity(), atasanAprovalModels);
+                            PemesananModels = response.body();
+                            atasanHistoriAprovalAdapter = new AtasanHistoriAprovalAdapter(getActivity(), PemesananModels);
                             rv.setLayoutManager(new LinearLayoutManager(getActivity()));
                             rv. setAdapter(atasanHistoriAprovalAdapter);
                             atasanHistoriAprovalAdapter.notifyDataSetChanged();
@@ -73,7 +73,7 @@ public class HistoriAtasanFragment extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(Call<ArrayList<AtasanAprovalModel>> call, Throwable t) {
+                    public void onFailure(Call<ArrayList<PemesananModel>> call, Throwable t) {
                         Toast.makeText(getActivity(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
 
                     }

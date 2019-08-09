@@ -6,7 +6,6 @@ import android.widget.Toast;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.iavariav.kbmonline.model.AtasanAprovalModel;
 import com.iavariav.kbmonline.model.UserModel;
 import com.iavariav.kbmonline.rest.ApiConfig;
 import com.iavariav.kbmonline.rest.ApiService;

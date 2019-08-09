@@ -1,13 +1,11 @@
-package com.iavariav.kbmonline.ui.atasan.adapter;
+package com.iavariav.kbmonline.ui.user.adapter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,27 +13,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.iavariav.kbmonline.R;
 import com.iavariav.kbmonline.helper.Config;
 import com.iavariav.kbmonline.model.PemesananModel;
-import com.iavariav.kbmonline.rest.ApiConfig;
-import com.iavariav.kbmonline.rest.ApiService;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
 import java.util.ArrayList;
 
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-public class AtasanAprovalAdapter extends RecyclerView.Adapter<AtasanAprovalAdapter.ViewHolder> {
+public class HistoriAdapter extends RecyclerView.Adapter<HistoriAdapter.ViewHolder> {
     private String id;
     private Context context;
 
     private ArrayList<PemesananModel> PemesananModels;
 
-    public AtasanAprovalAdapter(Context context, ArrayList<PemesananModel> PemesananModels) {
+    public HistoriAdapter(Context context, ArrayList<PemesananModel> PemesananModels) {
         this.context = context;
         this.PemesananModels = PemesananModels;
     }
@@ -43,7 +30,7 @@ public class AtasanAprovalAdapter extends RecyclerView.Adapter<AtasanAprovalAdap
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_atasan, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_histori, parent, false);
         return new ViewHolder(view);
     }
 
@@ -69,53 +56,11 @@ public class AtasanAprovalAdapter extends RecyclerView.Adapter<AtasanAprovalAdap
         double hitungLiter = Integer.parseInt(jarakKm)/ 11.6;
         double hitugHargaBBM = hitungLiter * Integer.parseInt(PemesananModels.get(position).getBENSINPERLITER());
 
-        holder.tvHargaBbm.setText("RP." + hitugHargaBBM);
-
-        // jika disetujui
-        holder.ivDisetujui.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                Toast.makeText(context, "Disetujui" + PemesananModels.get(position).getIDPEMESANAN() + "id : " + id, Toast.LENGTH_SHORT).show();
-                updateDatas(PemesananModels.get(position).getIDPEMESANAN(), id, "APPROVED");
-            }
-        });
-
-        // jika ditolak
-        holder.ivDitolak.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(context, "Ditolak", Toast.LENGTH_SHORT).show();
-                updateDatas(PemesananModels.get(position).getIDPEMESANAN(), id,"NOT APROVVED");
-            }
-        });
+        holder.tvHargaBbm.setText("RP."+ PemesananModels.get(position).getBENSINPERLITER());
 
 
     }
 
-    private void updateDatas(String id, String idAtasan, String status) {
-        ApiService apiService = ApiConfig.getApiService();
-        apiService.updateStatusPemesanan(id, idAtasan, status)
-                .enqueue(new Callback<ResponseBody>() {
-                    @Override
-                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        if (response.isSuccessful()){
-                            try {
-                                JSONObject jsonObject = new JSONObject(response.body().string());
-                                Toast.makeText(context, "" + jsonObject.optString("error_msg"), Toast.LENGTH_SHORT).show();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        Toast.makeText(context, "" + t.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-    }
 
     @Override
     public int getItemCount() {
@@ -137,8 +82,6 @@ public class AtasanAprovalAdapter extends RecyclerView.Adapter<AtasanAprovalAdap
         private TextView tvKeternangan;
         private TextView tvHargaBbm;
         private TextView tvStatus;
-        private ImageView ivDisetujui;
-        private ImageView ivDitolak;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvRegToken = itemView.findViewById(R.id.tv_reg_token);
@@ -154,8 +97,6 @@ public class AtasanAprovalAdapter extends RecyclerView.Adapter<AtasanAprovalAdap
             tvKeternangan = itemView.findViewById(R.id.tv_keternangan);
             tvHargaBbm = itemView.findViewById(R.id.tv_harga_bbm);
             tvStatus = itemView.findViewById(R.id.tv_status);
-            ivDisetujui = itemView.findViewById(R.id.iv_disetujui);
-            ivDitolak = itemView.findViewById(R.id.iv_ditolak);
         }
     }
 }

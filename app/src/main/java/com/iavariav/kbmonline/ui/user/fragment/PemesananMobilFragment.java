@@ -1,4 +1,4 @@
-package com.iavariav.kbmonline.ui.user;
+package com.iavariav.kbmonline.ui.user.fragment;
 
 
 import android.app.DatePickerDialog;

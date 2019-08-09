@@ -24,7 +24,7 @@ import static android.content.Context.MODE_PRIVATE;
 public final class Config {
     public static final String SHARED_PREF_NAME = "KBM_TELKOM";
     public static final String SHARED_PREF_ID = "KBM_ID_USER";
-    public static final String SHARED_PREF_USERNAME = "KBM_USERNAME";
+    public static final String SHARED_PREF_NAMA_LENGKAP = "KBM_USERNAME";
     public static final String SHARED_PREF_RULE = "KBM_RULE";
     public static final String SHARED_PREF_REGID_FIREBASE = "KBM_REGID_FIREBASE";
     public static final String SHARED_PREF_ERROR_MSG = "KBM_ERROR_MSG";
@@ -46,7 +46,7 @@ public final class Config {
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
         editor.putString(Config.SHARED_PREF_ID, idUser);
-        editor.putString(Config.SHARED_PREF_USERNAME, username);
+        editor.putString(Config.SHARED_PREF_NAMA_LENGKAP, username);
         editor.putString(Config.SHARED_PREF_RULE, rule);
 
 
@@ -84,7 +84,7 @@ public final class Config {
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
         editor.putString(Config.SHARED_PREF_ID, "");
-        editor.putString(Config.SHARED_PREF_USERNAME, "");
+        editor.putString(Config.SHARED_PREF_NAMA_LENGKAP, "");
         editor.putString(Config.SHARED_PREF_RULE, "");
         editor.apply();
 

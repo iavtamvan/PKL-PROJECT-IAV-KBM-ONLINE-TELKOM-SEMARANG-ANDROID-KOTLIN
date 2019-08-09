@@ -5,45 +5,32 @@ import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.iavariav.kbmonline.R;
 import com.iavariav.kbmonline.helper.Config;
-import com.iavariav.kbmonline.model.AtasanAprovalModel;
-import com.iavariav.kbmonline.rest.ApiConfig;
-import com.iavariav.kbmonline.rest.ApiService;
+import com.iavariav.kbmonline.model.PemesananModel;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
 import java.util.ArrayList;
-
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class AtasanHistoriAprovalAdapter extends RecyclerView.Adapter<AtasanHistoriAprovalAdapter.ViewHolder> {
     private String id;
     private Context context;
 
-    private ArrayList<AtasanAprovalModel> atasanAprovalModels;
+    private ArrayList<PemesananModel> PemesananModels;
 
-    public AtasanHistoriAprovalAdapter(Context context, ArrayList<AtasanAprovalModel> atasanAprovalModels) {
+    public AtasanHistoriAprovalAdapter(Context context, ArrayList<PemesananModel> PemesananModels) {
         this.context = context;
-        this.atasanAprovalModels = atasanAprovalModels;
+        this.PemesananModels = PemesananModels;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_atasan_histori, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_histori, parent, false);
         return new ViewHolder(view);
     }
 
@@ -51,23 +38,23 @@ public class AtasanHistoriAprovalAdapter extends RecyclerView.Adapter<AtasanHist
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
         id = sharedPreferences.getString(Config.SHARED_PREF_ID, "");
-        holder.tvRegToken.setText(atasanAprovalModels.get(position).getREGTOKENPEMESANAN());
-        holder.tvNama.setText(atasanAprovalModels.get(position).getnAMAPEMESAN());
-        holder.tvJenisKeperluan.setText(atasanAprovalModels.get(position).getJENISKEPERLUAN());
-        holder.tvJenisPemesanan.setText(atasanAprovalModels.get(position).getJENISPEMESANAN());
-        holder.tvKm.setText(atasanAprovalModels.get(position).getJARAKPERKM() + "\n KM");
-        holder.tvKeberangkatan.setText(atasanAprovalModels.get(position).getKEBERANGKATANAREAPOOL());
-        holder.tvWaktuKeberangkatan.setText(atasanAprovalModels.get(position).getWAKTUKEBERANGKATAN());
-        holder.tvTujuan.setText(atasanAprovalModels.get(position).getTUJUANALAMATJEMPUT());
-        holder.tvWaktuTujuan.setText(atasanAprovalModels.get(position).getWAKTUKEPULANGAN());
-        holder.tvIsiPenumpang.setText(atasanAprovalModels.get(position).getISIPENUMPANG());
-        holder.tvKeternangan.setText(atasanAprovalModels.get(position).getKETERANGAN());
-        holder.tvStatus.setText(atasanAprovalModels.get(position).getSTATUSPEMESANAN());
+        holder.tvRegToken.setText(PemesananModels.get(position).getREGTOKENPEMESANAN());
+        holder.tvNama.setText(PemesananModels.get(position).getNAMAPEMESAN());
+        holder.tvJenisKeperluan.setText(PemesananModels.get(position).getJENISKEPERLUAN());
+        holder.tvJenisPemesanan.setText(PemesananModels.get(position).getJENISPEMESANAN());
+        holder.tvKm.setText(PemesananModels.get(position).getJARAKPERKM() + "\n KM");
+        holder.tvKeberangkatan.setText(PemesananModels.get(position).getKEBERANGKATANAREAPOOL());
+        holder.tvWaktuKeberangkatan.setText(PemesananModels.get(position).getWAKTUKEBERANGKATAN());
+        holder.tvTujuan.setText(PemesananModels.get(position).getTUJUANALAMATJEMPUT());
+        holder.tvWaktuTujuan.setText(PemesananModels.get(position).getWAKTUKEPULANGAN());
+        holder.tvIsiPenumpang.setText(PemesananModels.get(position).getISIPENUMPANG());
+        holder.tvKeternangan.setText(PemesananModels.get(position).getKETERANGAN());
+        holder.tvStatus.setText(PemesananModels.get(position).getSTATUSPEMESANAN());
 
 
-        String jarakKm = atasanAprovalModels.get(position).getJARAKPERKM();
+        String jarakKm = PemesananModels.get(position).getJARAKPERKM();
         double hitungLiter = Integer.parseInt(jarakKm)/ 11.6;
-        double hitugHargaBBM = hitungLiter * Integer.parseInt(atasanAprovalModels.get(position).getBENSINPERLITER());
+        double hitugHargaBBM = hitungLiter * Integer.parseInt(PemesananModels.get(position).getBENSINPERLITER());
 
         holder.tvHargaBbm.setText("RP." + hitugHargaBBM);
 
@@ -77,7 +64,7 @@ public class AtasanHistoriAprovalAdapter extends RecyclerView.Adapter<AtasanHist
 
     @Override
     public int getItemCount() {
-        return atasanAprovalModels.size();
+        return PemesananModels.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

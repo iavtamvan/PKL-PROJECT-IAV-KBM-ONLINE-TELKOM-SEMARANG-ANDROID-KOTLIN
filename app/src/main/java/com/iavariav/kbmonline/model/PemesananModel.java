@@ -2,22 +2,13 @@ package com.iavariav.kbmonline.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class AtasanAprovalModel{
+public class PemesananModel{
 
 	@SerializedName("ID_USER_ATASAN")
 	private String iDUSERATASAN;
 
-	@SerializedName("NAMA_PEMESAN")
-	private String nAMAPEMESAN;
-
 	@SerializedName("TUJUAN_ALAMAT_DETAIL_MAPS")
 	private String tUJUANALAMATDETAILMAPS;
-
-	@SerializedName("PASSWORD_USER")
-	private String pASSWORDUSER;
-
-	@SerializedName("RULE_USER")
-	private String rULEUSER;
 
 	@SerializedName("REG_TOKEN_PEMESANAN")
 	private String rEGTOKENPEMESANAN;
@@ -37,14 +28,14 @@ public class AtasanAprovalModel{
 	@SerializedName("STATUS_PEMESANAN")
 	private String sTATUSPEMESANAN;
 
-	@SerializedName("NAMA_USER")
-	private String nAMAUSER;
+	@SerializedName("LAT_TUJUAN")
+	private Object lATTUJUAN;
 
-	@SerializedName("NIK_USER")
-	private String nIKUSER;
+	@SerializedName("NAMA_PEMESAN")
+	private String nAMAPEMESAN;
 
-	@SerializedName("REG_ID")
-	private String rEGID;
+	@SerializedName("LAT_AWAL")
+	private Object lATAWAL;
 
 	@SerializedName("WAKTU_KEPULANGAN")
 	private String wAKTUKEPULANGAN;
@@ -55,6 +46,9 @@ public class AtasanAprovalModel{
 	@SerializedName("KEBERANGKATAN_WITEL")
 	private String kEBERANGKATANWITEL;
 
+	@SerializedName("LONG_TUJUAN")
+	private Object lONGTUJUAN;
+
 	@SerializedName("KETERANGAN")
 	private String kETERANGAN;
 
@@ -63,6 +57,9 @@ public class AtasanAprovalModel{
 
 	@SerializedName("WAKTU_KEBERANGKATAN")
 	private String wAKTUKEBERANGKATAN;
+
+	@SerializedName("LONG_AWAL")
+	private Object lONGAWAL;
 
 	@SerializedName("JENIS_KEPERLUAN")
 	private String jENISKEPERLUAN;
@@ -88,22 +85,11 @@ public class AtasanAprovalModel{
 	@SerializedName("JUMLAH_PENUMPANG")
 	private String jUMLAHPENUMPANG;
 
-	@SerializedName("ID_USER")
-	private String iDUSER;
-
 	@SerializedName("JENIS_KENDARAAN")
-	private Object jENISKENDARAAN;
+	private String jENISKENDARAAN;
 
 	@SerializedName("REG_PEMESANAN")
 	private String rEGPEMESANAN;
-
-	public String getnAMAPEMESAN() {
-		return nAMAPEMESAN;
-	}
-
-	public void setnAMAPEMESAN(String nAMAPEMESAN) {
-		this.nAMAPEMESAN = nAMAPEMESAN;
-	}
 
 	public void setIDUSERATASAN(String iDUSERATASAN){
 		this.iDUSERATASAN = iDUSERATASAN;
@@ -119,22 +105,6 @@ public class AtasanAprovalModel{
 
 	public String getTUJUANALAMATDETAILMAPS(){
 		return tUJUANALAMATDETAILMAPS;
-	}
-
-	public void setPASSWORDUSER(String pASSWORDUSER){
-		this.pASSWORDUSER = pASSWORDUSER;
-	}
-
-	public String getPASSWORDUSER(){
-		return pASSWORDUSER;
-	}
-
-	public void setRULEUSER(String rULEUSER){
-		this.rULEUSER = rULEUSER;
-	}
-
-	public String getRULEUSER(){
-		return rULEUSER;
 	}
 
 	public void setREGTOKENPEMESANAN(String rEGTOKENPEMESANAN){
@@ -185,28 +155,28 @@ public class AtasanAprovalModel{
 		return sTATUSPEMESANAN;
 	}
 
-	public void setNAMAUSER(String nAMAUSER){
-		this.nAMAUSER = nAMAUSER;
+	public void setLATTUJUAN(Object lATTUJUAN){
+		this.lATTUJUAN = lATTUJUAN;
 	}
 
-	public String getNAMAUSER(){
-		return nAMAUSER;
+	public Object getLATTUJUAN(){
+		return lATTUJUAN;
 	}
 
-	public void setNIKUSER(String nIKUSER){
-		this.nIKUSER = nIKUSER;
+	public void setNAMAPEMESAN(String nAMAPEMESAN){
+		this.nAMAPEMESAN = nAMAPEMESAN;
 	}
 
-	public String getNIKUSER(){
-		return nIKUSER;
+	public String getNAMAPEMESAN(){
+		return nAMAPEMESAN;
 	}
 
-	public void setREGID(String rEGID){
-		this.rEGID = rEGID;
+	public void setLATAWAL(Object lATAWAL){
+		this.lATAWAL = lATAWAL;
 	}
 
-	public String getREGID(){
-		return rEGID;
+	public Object getLATAWAL(){
+		return lATAWAL;
 	}
 
 	public void setWAKTUKEPULANGAN(String wAKTUKEPULANGAN){
@@ -233,6 +203,14 @@ public class AtasanAprovalModel{
 		return kEBERANGKATANWITEL;
 	}
 
+	public void setLONGTUJUAN(Object lONGTUJUAN){
+		this.lONGTUJUAN = lONGTUJUAN;
+	}
+
+	public Object getLONGTUJUAN(){
+		return lONGTUJUAN;
+	}
+
 	public void setKETERANGAN(String kETERANGAN){
 		this.kETERANGAN = kETERANGAN;
 	}
@@ -255,6 +233,14 @@ public class AtasanAprovalModel{
 
 	public String getWAKTUKEBERANGKATAN(){
 		return wAKTUKEBERANGKATAN;
+	}
+
+	public void setLONGAWAL(Object lONGAWAL){
+		this.lONGAWAL = lONGAWAL;
+	}
+
+	public Object getLONGAWAL(){
+		return lONGAWAL;
 	}
 
 	public void setJENISKEPERLUAN(String jENISKEPERLUAN){
@@ -321,19 +307,11 @@ public class AtasanAprovalModel{
 		return jUMLAHPENUMPANG;
 	}
 
-	public void setIDUSER(String iDUSER){
-		this.iDUSER = iDUSER;
-	}
-
-	public String getIDUSER(){
-		return iDUSER;
-	}
-
-	public void setJENISKENDARAAN(Object jENISKENDARAAN){
+	public void setJENISKENDARAAN(String jENISKENDARAAN){
 		this.jENISKENDARAAN = jENISKENDARAAN;
 	}
 
-	public Object getJENISKENDARAAN(){
+	public String getJENISKENDARAAN(){
 		return jENISKENDARAAN;
 	}
 

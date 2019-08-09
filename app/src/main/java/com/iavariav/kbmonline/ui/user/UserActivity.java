@@ -15,6 +15,8 @@ import android.view.MenuItem;
 import com.google.android.material.navigation.NavigationView;
 import com.iavariav.kbmonline.R;
 import com.iavariav.kbmonline.helper.Config;
+import com.iavariav.kbmonline.ui.user.fragment.HistoriUserFragment;
+import com.iavariav.kbmonline.ui.user.fragment.PemesananMobilFragment;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -100,7 +102,9 @@ public class UserActivity extends AppCompatActivity
             fragmentManager.beginTransaction().replace(R.id.fm_view_pager_nav, new PemesananMobilFragment()).commit();
             getSupportActionBar().setTitle("Pemesanan Mobil");
         } else if (id == R.id.histori_pemesanan) {
-
+            fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.fm_view_pager_nav, new HistoriUserFragment()).commit();
+            getSupportActionBar().setTitle("Histori Pemesanan");
         } else if (id == R.id.logout) {
             Config.logout(UserActivity.this);
         }
