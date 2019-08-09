@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/pemesanan_mobil"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Pemesanan Mobil" />
+        <item
+            android:id="@+id/histori_pemesanan"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Histori Pemesanan" />
+        <item
+            android:id="@+id/logout"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Keluar" />
+    </group>
+
+</menu>

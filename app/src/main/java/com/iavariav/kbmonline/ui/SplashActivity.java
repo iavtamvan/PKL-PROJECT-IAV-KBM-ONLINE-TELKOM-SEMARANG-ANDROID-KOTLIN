@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.iavariav.kbmonline.R;
 import com.iavariav.kbmonline.helper.Config;
 import com.iavariav.kbmonline.ui.atasan.AtasanActivity;
+import com.iavariav.kbmonline.ui.user.UserActivity;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -19,6 +20,7 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        getSupportActionBar().hide();
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -39,8 +41,8 @@ public class SplashActivity extends AppCompatActivity {
                         startActivity(new Intent(getApplicationContext(), AtasanActivity.class));
                     } else if (rule.contains("user")){
                         Toast.makeText(SplashActivity.this, "rule : " + rule, Toast.LENGTH_SHORT).show();
-//                        finishAffinity();
-//                        startActivity(new Intent(getApplicationContext(), ValidatorActivity.class));
+                        finishAffinity();
+                        startActivity(new Intent(getApplicationContext(), UserActivity.class));
                     }
 
                 }

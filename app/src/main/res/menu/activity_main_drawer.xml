@@ -18,6 +18,11 @@
                 android:id="@+id/data_mobil"
                 android:icon="@drawable/ic_menu_manage"
                 android:title="Data Mobil" />
+            <item
+                android:id="@+id/histori"
+                android:icon="@drawable/ic_menu_gallery"
+                android:title="Histori" />
+
         </menu>
     </item>
     <item android:title="Pendaftaran">
@@ -29,13 +34,6 @@
 
         </menu>
     </item>
-
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/histori"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Histori" />
-    </group>
 
     <item android:title="Aksi">
         <menu>

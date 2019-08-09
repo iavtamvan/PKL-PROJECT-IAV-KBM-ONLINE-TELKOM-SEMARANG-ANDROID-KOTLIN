@@ -10,6 +10,7 @@ import com.iavariav.kbmonline.model.LoginModel;
 import com.iavariav.kbmonline.rest.ApiConfig;
 import com.iavariav.kbmonline.rest.ApiService;
 import com.iavariav.kbmonline.ui.atasan.AtasanActivity;
+import com.iavariav.kbmonline.ui.user.UserActivity;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -38,7 +39,7 @@ public class LoginPresenter {
                             if (rule.contains("pimpinan")){
                                 context.startActivity(new Intent(context, AtasanActivity.class));
                             } else if (rule.contains("user")){
-//                                context.startActivity(new Intent(context, ));
+                                context.startActivity(new Intent(context, UserActivity.class));
                                 Toast.makeText(context, "User RUle", Toast.LENGTH_SHORT).show();
                             }
                         }
