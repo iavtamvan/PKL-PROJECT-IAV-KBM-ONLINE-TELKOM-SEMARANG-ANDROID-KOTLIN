@@ -18,8 +18,6 @@ import com.iavariav.kbmonline.model.PemesananModel;
 import com.iavariav.kbmonline.rest.ApiConfig;
 import com.iavariav.kbmonline.rest.ApiService;
 import com.iavariav.kbmonline.ui.atasan.AtasanActivity;
-import com.iavariav.kbmonline.ui.atasan.fragment.AprovalFragment;
-import com.iavariav.kbmonline.ui.atasan.presenter.AprovalPresenter;
 
 import org.json.JSONException;
 import org.json.JSONObject;

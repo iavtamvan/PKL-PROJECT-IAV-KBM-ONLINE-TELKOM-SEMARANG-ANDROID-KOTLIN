@@ -37,7 +37,7 @@ public class HistoriUserFragment extends Fragment {
         initView(view);
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
         String namaLengkap = sharedPreferences.getString(Config.SHARED_PREF_NAMA_LENGKAP, "");
-        Toast.makeText(getActivity(), "" + namaLengkap, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getActivity(), "" + namaLengkap, Toast.LENGTH_SHORT).show();
         historiUserPresenter = new HistoriUserPresenter();
         historiUserPresenter.getDataHistoriUser(getActivity(), namaLengkap, rv);
 

@@ -63,7 +63,7 @@ public final class Config {
                             try {
                                 JSONObject jsonObject = new JSONObject(response.body().string());
                                 String tittle = jsonObject.optString("tittle");
-                                Toast.makeText(context, "" + tittle, Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(context, "" + tittle, Toast.LENGTH_SHORT).show();
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             } catch (IOException e) {

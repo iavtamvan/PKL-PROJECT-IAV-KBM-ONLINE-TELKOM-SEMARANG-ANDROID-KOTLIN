@@ -28,7 +28,7 @@ public class LoginPresenter {
                     public void onResponse(Call<LoginModel> call, Response<LoginModel> response) {
                         if (response.isSuccessful()){
                             loginModel = response.body();
-                            Toast.makeText(context, "" + loginModel.getUsername(), Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(context, "" + loginModel.getUsername(), Toast.LENGTH_SHORT).show();
                             SharedPreferences sharedPreferences = context.getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
                             editor.putString(Config.SHARED_PREF_ID, loginModel.getId());
@@ -43,7 +43,7 @@ public class LoginPresenter {
                                 context.startActivity(new Intent(context, AtasanActivity.class));
                             } else if (rule.contains("user")){
                                 context.startActivity(new Intent(context, UserActivity.class));
-                                Toast.makeText(context, "User RUle", Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(context, "User RUle", Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
@@ -63,7 +63,7 @@ public class LoginPresenter {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         if (response.isSuccessful()){
-                            Toast.makeText(context, "Berhasil reg id", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(context, "Berhasil reg id", Toast.LENGTH_SHORT).show();
                         }
                     }
 

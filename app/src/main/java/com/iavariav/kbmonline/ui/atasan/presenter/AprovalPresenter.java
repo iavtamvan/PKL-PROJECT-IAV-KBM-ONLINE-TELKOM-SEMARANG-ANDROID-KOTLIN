@@ -1,6 +1,8 @@
 package com.iavariav.kbmonline.ui.atasan.presenter;
 
 import android.content.Context;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,7 +23,7 @@ public class AprovalPresenter {
     private ArrayList<PemesananModel> PemesananModels;
     private AtasanAprovalAdapter atasanAprovalAdapter;
 
-    public void getDatas(final Context context, final RecyclerView rv) {
+    public void getDatas(final Context context, final RecyclerView rv, final LinearLayout div) {
         PemesananModels = new ArrayList<>();
         ApiService apiService = ApiConfig.getApiService();
         apiService.getAllData("getAllDataPemesanan")
@@ -34,6 +36,14 @@ public class AprovalPresenter {
                             rv.setLayoutManager(new LinearLayoutManager(context));
                             rv.setAdapter(atasanAprovalAdapter);
                             atasanAprovalAdapter.notifyDataSetChanged();
+
+                            if (PemesananModels.isEmpty()) {
+                                rv.setVisibility(View.GONE);
+                                div.setVisibility(View.VISIBLE);
+                            } else {
+                                rv.setVisibility(View.VISIBLE);
+                                div.setVisibility(View.GONE);
+                            }
                         }
                     }
 

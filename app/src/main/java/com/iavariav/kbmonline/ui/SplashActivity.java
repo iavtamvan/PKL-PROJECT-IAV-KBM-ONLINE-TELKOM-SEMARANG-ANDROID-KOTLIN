@@ -41,7 +41,7 @@ public class SplashActivity extends AppCompatActivity {
                         finishAffinity();
                         startActivity(new Intent(getApplicationContext(), AtasanActivity.class));
                     } else if (rule.contains("user")){
-                        Toast.makeText(SplashActivity.this, "rule : " + rule, Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(SplashActivity.this, "rule : " + rule, Toast.LENGTH_SHORT).show();
                         finishAffinity();
                         startActivity(new Intent(getApplicationContext(), UserActivity.class));
                     }
