@@ -53,10 +53,10 @@ public class AtasanHistoriAprovalAdapter extends RecyclerView.Adapter<AtasanHist
 
 
         String jarakKm = PemesananModels.get(position).getJARAKPERKM();
-        double hitungLiter = Integer.parseInt(jarakKm)/ 11.6;
-        double hitugHargaBBM = hitungLiter * Integer.parseInt(PemesananModels.get(position).getBENSINPERLITER());
+//        double hitungLiter = Integer.parseInt(jarakKm)/ 11.6;
+//        double hitugHargaBBM = hitungLiter * Integer.parseInt(PemesananModels.get(position).getBENSINPERLITER());
 
-        holder.tvHargaBbm.setText("RP." + hitugHargaBBM);
+        holder.tvHargaBbm.setText("RP." + PemesananModels.get(position).getBENSINPERLITER());
 
 
     }

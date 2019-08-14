@@ -1,4 +1,4 @@
-package com.iavariav.kbmonline.ui;
+package com.iavariav.kbmonline.ui.login;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +12,7 @@ import com.iavariav.kbmonline.rest.ApiService;
 import com.iavariav.kbmonline.ui.atasan.AtasanActivity;
 import com.iavariav.kbmonline.ui.user.UserActivity;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -34,6 +35,8 @@ public class LoginPresenter {
                             editor.putString(Config.SHARED_PREF_NAMA_LENGKAP, loginModel.getUsername());
                             editor.putString(Config.SHARED_PREF_RULE, loginModel.getRule());
                             editor.apply();
+                            String regID = sharedPreferences.getString("regId", "");
+                            updateRegID(context, regID, loginModel.getId());
 
                             String rule= loginModel.getRule();
                             if (rule.contains("pimpinan")){
@@ -49,6 +52,24 @@ public class LoginPresenter {
                     public void onFailure(Call<LoginModel> call, Throwable t) {
                         Toast.makeText(context, "" + t.getMessage(), Toast.LENGTH_SHORT).show();
 
+                    }
+                });
+    }
+
+    private void updateRegID(final Context context, String regID, String idUser) {
+        ApiService apiService = ApiConfig.getApiService();
+        apiService.updateRegID(regID, idUser)
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        if (response.isSuccessful()){
+                            Toast.makeText(context, "Berhasil reg id", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Toast.makeText(context, "" + t.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }

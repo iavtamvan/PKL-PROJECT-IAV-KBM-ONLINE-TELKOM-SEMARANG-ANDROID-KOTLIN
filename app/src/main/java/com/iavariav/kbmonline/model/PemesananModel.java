@@ -10,6 +10,12 @@ public class PemesananModel{
 	@SerializedName("TUJUAN_ALAMAT_DETAIL_MAPS")
 	private String tUJUANALAMATDETAILMAPS;
 
+	@SerializedName("PASSWORD_USER")
+	private String pASSWORDUSER;
+
+	@SerializedName("RULE_USER")
+	private String rULEUSER;
+
 	@SerializedName("REG_TOKEN_PEMESANAN")
 	private String rEGTOKENPEMESANAN;
 
@@ -28,14 +34,23 @@ public class PemesananModel{
 	@SerializedName("STATUS_PEMESANAN")
 	private String sTATUSPEMESANAN;
 
+	@SerializedName("NAMA_USER")
+	private String nAMAUSER;
+
 	@SerializedName("LAT_TUJUAN")
-	private Object lATTUJUAN;
+	private String lATTUJUAN;
+
+	@SerializedName("NIK_USER")
+	private String nIKUSER;
 
 	@SerializedName("NAMA_PEMESAN")
 	private String nAMAPEMESAN;
 
+	@SerializedName("REG_ID")
+	private String rEGID;
+
 	@SerializedName("LAT_AWAL")
-	private Object lATAWAL;
+	private String lATAWAL;
 
 	@SerializedName("WAKTU_KEPULANGAN")
 	private String wAKTUKEPULANGAN;
@@ -47,7 +62,7 @@ public class PemesananModel{
 	private String kEBERANGKATANWITEL;
 
 	@SerializedName("LONG_TUJUAN")
-	private Object lONGTUJUAN;
+	private String lONGTUJUAN;
 
 	@SerializedName("KETERANGAN")
 	private String kETERANGAN;
@@ -59,7 +74,7 @@ public class PemesananModel{
 	private String wAKTUKEBERANGKATAN;
 
 	@SerializedName("LONG_AWAL")
-	private Object lONGAWAL;
+	private String lONGAWAL;
 
 	@SerializedName("JENIS_KEPERLUAN")
 	private String jENISKEPERLUAN;
@@ -85,6 +100,9 @@ public class PemesananModel{
 	@SerializedName("JUMLAH_PENUMPANG")
 	private String jUMLAHPENUMPANG;
 
+	@SerializedName("ID_USER")
+	private String iDUSER;
+
 	@SerializedName("JENIS_KENDARAAN")
 	private String jENISKENDARAAN;
 
@@ -105,6 +123,22 @@ public class PemesananModel{
 
 	public String getTUJUANALAMATDETAILMAPS(){
 		return tUJUANALAMATDETAILMAPS;
+	}
+
+	public void setPASSWORDUSER(String pASSWORDUSER){
+		this.pASSWORDUSER = pASSWORDUSER;
+	}
+
+	public String getPASSWORDUSER(){
+		return pASSWORDUSER;
+	}
+
+	public void setRULEUSER(String rULEUSER){
+		this.rULEUSER = rULEUSER;
+	}
+
+	public String getRULEUSER(){
+		return rULEUSER;
 	}
 
 	public void setREGTOKENPEMESANAN(String rEGTOKENPEMESANAN){
@@ -155,12 +189,28 @@ public class PemesananModel{
 		return sTATUSPEMESANAN;
 	}
 
-	public void setLATTUJUAN(Object lATTUJUAN){
+	public void setNAMAUSER(String nAMAUSER){
+		this.nAMAUSER = nAMAUSER;
+	}
+
+	public String getNAMAUSER(){
+		return nAMAUSER;
+	}
+
+	public void setLATTUJUAN(String lATTUJUAN){
 		this.lATTUJUAN = lATTUJUAN;
 	}
 
-	public Object getLATTUJUAN(){
+	public String getLATTUJUAN(){
 		return lATTUJUAN;
+	}
+
+	public void setNIKUSER(String nIKUSER){
+		this.nIKUSER = nIKUSER;
+	}
+
+	public String getNIKUSER(){
+		return nIKUSER;
 	}
 
 	public void setNAMAPEMESAN(String nAMAPEMESAN){
@@ -171,11 +221,19 @@ public class PemesananModel{
 		return nAMAPEMESAN;
 	}
 
-	public void setLATAWAL(Object lATAWAL){
+	public void setREGID(String rEGID){
+		this.rEGID = rEGID;
+	}
+
+	public String getREGID(){
+		return rEGID;
+	}
+
+	public void setLATAWAL(String lATAWAL){
 		this.lATAWAL = lATAWAL;
 	}
 
-	public Object getLATAWAL(){
+	public String getLATAWAL(){
 		return lATAWAL;
 	}
 
@@ -203,11 +261,11 @@ public class PemesananModel{
 		return kEBERANGKATANWITEL;
 	}
 
-	public void setLONGTUJUAN(Object lONGTUJUAN){
+	public void setLONGTUJUAN(String lONGTUJUAN){
 		this.lONGTUJUAN = lONGTUJUAN;
 	}
 
-	public Object getLONGTUJUAN(){
+	public String getLONGTUJUAN(){
 		return lONGTUJUAN;
 	}
 
@@ -235,11 +293,11 @@ public class PemesananModel{
 		return wAKTUKEBERANGKATAN;
 	}
 
-	public void setLONGAWAL(Object lONGAWAL){
+	public void setLONGAWAL(String lONGAWAL){
 		this.lONGAWAL = lONGAWAL;
 	}
 
-	public Object getLONGAWAL(){
+	public String getLONGAWAL(){
 		return lONGAWAL;
 	}
 
@@ -305,6 +363,14 @@ public class PemesananModel{
 
 	public String getJUMLAHPENUMPANG(){
 		return jUMLAHPENUMPANG;
+	}
+
+	public void setIDUSER(String iDUSER){
+		this.iDUSER = iDUSER;
+	}
+
+	public String getIDUSER(){
+		return iDUSER;
 	}
 
 	public void setJENISKENDARAAN(String jENISKENDARAAN){

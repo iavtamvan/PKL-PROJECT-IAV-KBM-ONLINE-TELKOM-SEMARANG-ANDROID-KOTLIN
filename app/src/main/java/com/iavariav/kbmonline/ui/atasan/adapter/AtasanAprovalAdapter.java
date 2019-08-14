@@ -17,6 +17,9 @@ import com.iavariav.kbmonline.helper.Config;
 import com.iavariav.kbmonline.model.PemesananModel;
 import com.iavariav.kbmonline.rest.ApiConfig;
 import com.iavariav.kbmonline.rest.ApiService;
+import com.iavariav.kbmonline.ui.atasan.AtasanActivity;
+import com.iavariav.kbmonline.ui.atasan.fragment.AprovalFragment;
+import com.iavariav.kbmonline.ui.atasan.presenter.AprovalPresenter;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,6 +34,7 @@ import retrofit2.Response;
 
 public class AtasanAprovalAdapter extends RecyclerView.Adapter<AtasanAprovalAdapter.ViewHolder> {
     private String id;
+    private String regId;
     private Context context;
 
     private ArrayList<PemesananModel> PemesananModels;
@@ -64,19 +68,19 @@ public class AtasanAprovalAdapter extends RecyclerView.Adapter<AtasanAprovalAdap
         holder.tvKeternangan.setText(PemesananModels.get(position).getKETERANGAN());
         holder.tvStatus.setText(PemesananModels.get(position).getSTATUSPEMESANAN());
 
-
+        regId = PemesananModels.get(position).getREGID();
         String jarakKm = PemesananModels.get(position).getJARAKPERKM();
-        double hitungLiter = Integer.parseInt(jarakKm)/ 11.6;
-        double hitugHargaBBM = hitungLiter * Integer.parseInt(PemesananModels.get(position).getBENSINPERLITER());
+//        double hitungLiter = Integer.parseInt(jarakKm)/ 11.6;
+//        double hitugHargaBBM = hitungLiter * Integer.parseInt(PemesananModels.get(position).getBENSINPERLITER());
 
-        holder.tvHargaBbm.setText("RP." + hitugHargaBBM);
+        holder.tvHargaBbm.setText("RP." + PemesananModels.get(position).getBENSINPERLITER());
 
         // jika disetujui
         holder.ivDisetujui.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 //                Toast.makeText(context, "Disetujui" + PemesananModels.get(position).getIDPEMESANAN() + "id : " + id, Toast.LENGTH_SHORT).show();
-                updateDatas(PemesananModels.get(position).getIDPEMESANAN(), id, "APPROVED");
+                updateDatas(PemesananModels.get(position).getIDPEMESANAN(), id, "APPROVED", "Pesanan anda disetujui Pimpinan");
             }
         });
 
@@ -84,15 +88,14 @@ public class AtasanAprovalAdapter extends RecyclerView.Adapter<AtasanAprovalAdap
         holder.ivDitolak.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, "Ditolak", Toast.LENGTH_SHORT).show();
-                updateDatas(PemesananModels.get(position).getIDPEMESANAN(), id,"NOT APROVVED");
+                updateDatas(PemesananModels.get(position).getIDPEMESANAN(), id,"NOT APROVVED", "Pesanan anda ditolak oleh Pimpinan");
             }
         });
 
 
     }
 
-    private void updateDatas(String id, String idAtasan, String status) {
+    private void updateDatas(String id, String idAtasan, String status, final String message) {
         ApiService apiService = ApiConfig.getApiService();
         apiService.updateStatusPemesanan(id, idAtasan, status)
                 .enqueue(new Callback<ResponseBody>() {
@@ -101,7 +104,8 @@ public class AtasanAprovalAdapter extends RecyclerView.Adapter<AtasanAprovalAdap
                         if (response.isSuccessful()){
                             try {
                                 JSONObject jsonObject = new JSONObject(response.body().string());
-                                Toast.makeText(context, "" + jsonObject.optString("error_msg"), Toast.LENGTH_SHORT).show();
+                                Config.pushNotif(context, "Status Pemesanan", message, "individual", regId);
+                                ((AtasanActivity)context).setData();
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             } catch (IOException e) {

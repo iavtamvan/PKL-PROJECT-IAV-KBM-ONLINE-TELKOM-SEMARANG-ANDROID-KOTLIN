@@ -16,6 +16,7 @@ import com.iavariav.kbmonline.model.PemesananModel;
 import com.iavariav.kbmonline.rest.ApiConfig;
 import com.iavariav.kbmonline.rest.ApiService;
 import com.iavariav.kbmonline.ui.atasan.adapter.AtasanAprovalAdapter;
+import com.iavariav.kbmonline.ui.atasan.presenter.AprovalPresenter;
 
 import java.util.ArrayList;
 
@@ -29,8 +30,7 @@ import retrofit2.Response;
 public class AprovalFragment extends Fragment {
     private RecyclerView rv;
 
-    private AtasanAprovalAdapter atasanAprovalAdapter;
-    private ArrayList<PemesananModel> PemesananModels;
+    private AprovalPresenter aprovalPresenter;
 
 
     public AprovalFragment() {
@@ -44,34 +44,9 @@ public class AprovalFragment extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_aproval, container, false);
         initView(view);
-
-        PemesananModels = new ArrayList<>();
-        getData();
-
+        aprovalPresenter = new AprovalPresenter();
+        aprovalPresenter.getDatas(getActivity(), rv);
         return view;
-    }
-
-    private void getData() {
-        ApiService apiService = ApiConfig.getApiService();
-        apiService.getAllData("getAllDataPemesanan")
-                .enqueue(new Callback<ArrayList<PemesananModel>>() {
-                    @Override
-                    public void onResponse(Call<ArrayList<PemesananModel>> call, Response<ArrayList<PemesananModel>> response) {
-                        if (response.isSuccessful()){
-                            PemesananModels = response.body();
-                            atasanAprovalAdapter = new AtasanAprovalAdapter(getActivity(), PemesananModels);
-                            rv.setLayoutManager(new LinearLayoutManager(getActivity()));
-                            rv.setAdapter(atasanAprovalAdapter);
-                            atasanAprovalAdapter.notifyDataSetChanged();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<ArrayList<PemesananModel>> call, Throwable t) {
-
-                        Toast.makeText(getActivity(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
     }
 
     private void initView(View View) {

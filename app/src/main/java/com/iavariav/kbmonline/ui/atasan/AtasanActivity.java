@@ -65,6 +65,12 @@ public class AtasanActivity extends AppCompatActivity
         getSupportActionBar().setTitle("Data KBM-ONLINE");
     }
 
+    public void setData(){
+        fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.fm_view_pager_nav, new AprovalFragment()).commit();
+        getSupportActionBar().setTitle("Data KBM-ONLINE");
+    }
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

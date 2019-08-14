@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.iavariav.kbmonline.R;
 import com.iavariav.kbmonline.helper.Config;
 import com.iavariav.kbmonline.ui.atasan.AtasanActivity;
+import com.iavariav.kbmonline.ui.login.LoginActivity;
 import com.iavariav.kbmonline.ui.user.UserActivity;
 
 public class SplashActivity extends AppCompatActivity {

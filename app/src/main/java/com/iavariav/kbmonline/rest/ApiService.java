@@ -63,6 +63,43 @@ public interface ApiService {
             @Field("ID_USER_ATASAN") String idUserAtasan,
             @Field("STATUS_PEMESANAN") String status
     );
+    @FormUrlEncoded
+    @POST("api_update_reg_id.php")
+    Call<ResponseBody> updateRegID(
+            @Field("REG_ID") String regID,
+            @Field("ID_USER") String idUser);
+
+    @FormUrlEncoded
+    @POST("user/api_tambah_pemesanan.php")
+    Call<ResponseBody> postDataPemesanan(
+            @Field("ID_USER_ATASAN") String ID_USER_ATASAN,
+            @Field("NAMA_PEMESAN") String NAMA_PEMESAN,
+            @Field("JENIS_KEPERLUAN") String JENIS_KEPERLUAN,
+            @Field("JENIS_PEMESANAN") String JENIS_PEMESANAN,
+            @Field("JENIS_KENDARAAN") String JENIS_KENDARAAN,
+            @Field("KEBERANGKATAN_KAWASAN") String KEBERANGKATAN_KAWASAN,
+            @Field("KEBERANGKATAN_WITEL") String KEBERANGKATAN_WITEL,
+            @Field("KEBERANGKATAN_AREA_POOL") String KEBERANGKATAN_AREA_POOL,
+            @Field("TUJUAN_ALAMAT_JEMPUT") String TUJUAN_ALAMAT_JEMPUT,
+            @Field("TUJUAN_AREA") String TUJUAN_AREA,
+            @Field("TUJUAN_ALAMAT_DETAIL_MAPS") String TUJUAN_ALAMAT_DETAIL_MAPS,
+            @Field("LAT_AWAL") String LAT_AWAL,
+            @Field("LONG_AWAL") String LONG_AWAL,
+            @Field("LAT_TUJUAN") String LAT_TUJUAN,
+            @Field("LONG_TUJUAN") String LONG_TUJUAN,
+            @Field("WAKTU_KEBERANGKATAN") String WAKTU_KEBERANGKATAN,
+            @Field("WAKTU_KEPULANGAN") String WAKTU_KEPULANGAN,
+            @Field("NO_TELEPON_KANTOR") String NO_TELEPON_KANTOR,
+            @Field("NO_HP") String NO_HP,
+            @Field("JUMLAH_PENUMPANG") String JUMLAH_PENUMPANG,
+            @Field("ISI_PENUMPANG") String ISI_PENUMPANG,
+            @Field("KETERANGAN") String KETERANGAN,
+            @Field("JARAK_PER_KM") String JARAK_PER_KM,
+            @Field("BENSIN_PER_LITER") String BENSIN_PER_LITER,
+            @Field("NAMA_ATASAN") String NAMA_ATASAN,
+            @Field("REG_TOKEN_PEMESANAN") String REG_TOKEN_PEMESANAN,
+            @Field("REG_ID") String REG_ID
+    );
 
 //    @GET("api_get.php")
 //    Call<ArrayList<PelaporModel>> getHistory(

@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.widget.Toast;
 
-import com.iavariav.kbmonline.ui.LoginActivity;
+import com.iavariav.kbmonline.ui.login.LoginActivity;
 import com.iavariav.kbmonline.rest.ApiConfig;
 import com.iavariav.kbmonline.rest.ApiService;
 
@@ -74,7 +74,7 @@ public final class Config {
 
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+                        Toast.makeText(context, "" + t.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -86,6 +86,7 @@ public final class Config {
         editor.putString(Config.SHARED_PREF_ID, "");
         editor.putString(Config.SHARED_PREF_NAMA_LENGKAP, "");
         editor.putString(Config.SHARED_PREF_RULE, "");
+//        editor.putString("regId", "");
         editor.apply();
 
         context.startActivity(new Intent(context, LoginActivity.class));

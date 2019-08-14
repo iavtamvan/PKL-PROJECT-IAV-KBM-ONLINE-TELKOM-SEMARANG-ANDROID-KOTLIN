@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.LoginActivity"
+    tools:context=".ui.login.LoginActivity"
     android:orientation="vertical">
 
     <LinearLayout
@@ -21,6 +21,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/edt_nik"
                 android:text="12345"
+                android:inputType="number"
                 android:hint="NIK"/>
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout

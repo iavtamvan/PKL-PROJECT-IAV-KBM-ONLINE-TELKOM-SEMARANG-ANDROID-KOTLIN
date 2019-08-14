@@ -8,19 +8,19 @@
         <menu>
             <item
                 android:id="@+id/data_kbm"
-                android:icon="@drawable/ic_menu_camera"
+                android:icon="@drawable/data"
                 android:title="Data KBM" />
             <item
                 android:id="@+id/data_user"
-                android:icon="@drawable/ic_menu_manage"
+                android:icon="@drawable/data"
                 android:title="Data User" />
             <item
                 android:id="@+id/data_mobil"
-                android:icon="@drawable/ic_menu_manage"
+                android:icon="@drawable/car"
                 android:title="Data Mobil" />
             <item
                 android:id="@+id/histori"
-                android:icon="@drawable/ic_menu_gallery"
+                android:icon="@drawable/histori"
                 android:title="Histori" />
 
         </menu>
@@ -29,7 +29,7 @@
         <menu>
             <item
                 android:id="@+id/daftar_user"
-                android:icon="@drawable/ic_menu_slideshow"
+                android:icon="@drawable/form"
                 android:title="Daftarkan User" />
 
         </menu>
@@ -39,7 +39,7 @@
         <menu>
             <item
                 android:id="@+id/logout"
-                android:icon="@drawable/ic_menu_share"
+                android:icon="@drawable/logout"
                 android:title="Keluar" />
             <!--<item-->
                 <!--android:id="@+id/nav_send"-->

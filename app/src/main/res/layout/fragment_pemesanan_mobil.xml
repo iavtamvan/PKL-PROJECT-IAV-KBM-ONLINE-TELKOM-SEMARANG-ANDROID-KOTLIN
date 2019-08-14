@@ -152,6 +152,7 @@
                             android:layout_height="wrap_content"
                             android:hint="Alamat Penjemputan"
                             android:id="@+id/edt_penjemputan"
+                            android:inputType="text"
                             android:fontFamily="@font/bree_serif"/>
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
@@ -218,6 +219,41 @@
                             android:textStyle="bold"/>
 
                     </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Jumlah Penumpang"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/bree_serif"/>
+                        <com.jaredrummler.materialspinner.MaterialSpinner
+                            android:id="@+id/spn_jumlah_penumpang"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="-- Pilih --"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Isi Penjemputan"
+                                android:id="@+id/edt_isi_penumpang"
+                                android:fontFamily="@font/bree_serif"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+
                 </LinearLayout>
                 <View
                     android:layout_width="match_parent"
@@ -397,6 +433,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="No. Telepon Kantor"
+                            android:inputType="number"
                             android:id="@+id/edt_no_telepon_kantor"
                             android:fontFamily="@font/bree_serif"/>
                     </com.google.android.material.textfield.TextInputLayout>
@@ -408,6 +445,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:id="@+id/edt_no_hp"
+                            android:inputType="number"
                             android:hint="No. HP"
                             android:fontFamily="@font/bree_serif"/>
                     </com.google.android.material.textfield.TextInputLayout>
@@ -526,6 +564,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:background="@color/colorBtn"
+                android:id="@+id/btn_pesan_sekarang"
                 android:text="pesan sekarang !"
                 android:textColor="@android:color/white"
                 android:textSize="20dp"

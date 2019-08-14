@@ -4,6 +4,7 @@ package com.iavariav.kbmonline.ui.user.fragment;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -26,17 +27,21 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.material.snackbar.Snackbar;
 import com.iavariav.kbmonline.R;
+import com.iavariav.kbmonline.helper.Config;
 import com.iavariav.kbmonline.metode.Haversine;
+import com.iavariav.kbmonline.ui.user.presenter.PemesananUserPresenter;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.Random;
 
 import im.delight.android.location.SimpleLocation;
 
 import static android.app.Activity.RESULT_OK;
+import static android.content.Context.MODE_PRIVATE;
 import static java.lang.Math.acos;
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
@@ -52,8 +57,25 @@ public class PemesananMobilFragment extends Fragment {
     private String areaPool[] = {"-- PILIH --", "SMG Johar", "SMG Pahlawan"};
     private String areaTujuanKawasan[] = {"-- PILIH --", "JABAR-BANTEN", "JABODETABEK", "JATEN-DIY", "JATIM-BALI-NUSA", "KALIMANTAN", "PAMASULA"};
     private String areaTujuanKawasanPilhan[] = {"-- PILIH --", "KS Sudirman", "MGL Yos Sudarso", "PK Merak", "PK Pemuda", "PWT Merdeka", "SLA Diponegoro", "SMH Johar", "SMG Pahlawan", "SLO Mayor Kusmanto", "Yogyakarta", "Lainnya"};
+    private String jumlahIsiPenumpang[] = {"-- PILIH --", "1", "2", "3", "4", "5"};
 
     private String android_id;
+    private String namaPemesan;
+    private String idUser;
+    private String regID;
+
+    private String placeNameAdress;
+    private String placeName;
+
+    private String jeniskeperluanSave;
+    private String jenisPemesananSave;
+    private String kawasanSave;
+    private String witelSave;
+    private String areaPoolSave;
+    private String areaTujuanKawasanSave;
+    private String areaTujuanKawasanPilhanSave;
+    private String jumlahIsiPenumpangSave;
+
     private final static int PLACE_PICKER_REQUEST = 999;
 
     private double latitudeBerangkat;
@@ -62,6 +84,8 @@ public class PemesananMobilFragment extends Fragment {
     private double longitudeTUjuan;
     private double distance;
     private double hitungJarak;
+    double stringJarak;
+    double hitungHargaBBM;
     private SimpleLocation location;
 
     private Calendar myCalendar;
@@ -73,6 +97,7 @@ public class PemesananMobilFragment extends Fragment {
     private MaterialSpinner spnKawasan;
     private MaterialSpinner spnWitel;
     private MaterialSpinner spnAreaPool;
+    private MaterialSpinner spnJumlahPenumpang;
     private EditText edtPenjemputan;
     private MaterialSpinner spnAreaTujuanKawasan;
     private MaterialSpinner spnAreaTujuan;
@@ -95,8 +120,12 @@ public class PemesananMobilFragment extends Fragment {
     private TextView tvKetukWaktuHideKepulangan;
     private Button btnLocDetail;
     private TextView tvAlamatDetail;
+    private EditText edtIsiPenumpang;
 
     static double PI_RAD = Math.PI / 180.0;
+
+    private PemesananUserPresenter pemesananUserPresenter;
+    private Button btnPesanSekarang;
 
 
     public PemesananMobilFragment() {
@@ -110,6 +139,13 @@ public class PemesananMobilFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_pemesanan_mobil, container, false);
         initView(view);
+        pemesananUserPresenter = new PemesananUserPresenter();
+
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Config.SHARED_PREF_NAME, MODE_PRIVATE);
+        namaPemesan = sharedPreferences.getString(Config.SHARED_PREF_NAMA_LENGKAP, "");
+        idUser = sharedPreferences.getString(Config.SHARED_PREF_ID, "");
+        regID = sharedPreferences.getString("regId", "");
+
 
         location = new SimpleLocation(getActivity());
         // if we can't access the location yet
@@ -119,13 +155,13 @@ public class PemesananMobilFragment extends Fragment {
         }
         latitudeBerangkat = location.getLatitude();
         longitudeBerangkat = location.getLongitude();
-        Toast.makeText(getActivity(), "" + latitudeBerangkat + longitudeBerangkat, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getActivity(), "" + latitudeBerangkat + longitudeBerangkat, Toast.LENGTH_SHORT).show();
 
         android_id = Settings.Secure.getString(getContext().getContentResolver(),
                 Settings.Secure.ANDROID_ID);
         Random r = new Random();
-        int random = (r.nextInt(44) + 65 * 3 / 12 * 88);
-        tvTokenPemesanan.setText("TELKOM-" + android_id + "-" + random);
+        int random = (r.nextInt(44) * 88);
+        tvTokenPemesanan.setText("TELKOM-KBM" + random + "-" + android_id);
 
         myCalendar = Calendar.getInstance();
         dateBerangkat = new DatePickerDialog.OnDateSetListener() {
@@ -184,9 +220,8 @@ public class PemesananMobilFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
-
                 try {
-                    startActivityForResult(builder.build(getActivity()), PLACE_PICKER_REQUEST);
+                    startActivityForResult(builder.build(Objects.requireNonNull(getActivity())), PLACE_PICKER_REQUEST);
                 } catch (GooglePlayServicesRepairableException e) {
                     e.printStackTrace();
                 } catch (GooglePlayServicesNotAvailableException e) {
@@ -199,7 +234,7 @@ public class PemesananMobilFragment extends Fragment {
         tvAlamatDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Uri navigationIntentUri = Uri.parse("google.navigation:q=" + latitudeTujuan +"," + longitudeTUjuan);//creating intent with latlng
+                Uri navigationIntentUri = Uri.parse("google.navigation:q=" + latitudeTujuan + "," + longitudeTUjuan);//creating intent with latlng
                 Intent mapIntent = new Intent(Intent.ACTION_VIEW, navigationIntentUri);
                 mapIntent.setPackage("com.google.android.apps.maps");
                 startActivity(mapIntent);
@@ -211,7 +246,8 @@ public class PemesananMobilFragment extends Fragment {
 
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
-                Snackbar.make(view, "Memilih " + item, Snackbar.LENGTH_LONG).show();
+                jeniskeperluanSave = item;
+                Snackbar.make(view, "Memilih " + jeniskeperluanSave, Snackbar.LENGTH_LONG).show();
             }
         });
         spnJenisPemesanan.setItems(jenisPemesanan);
@@ -219,7 +255,8 @@ public class PemesananMobilFragment extends Fragment {
 
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
-                Snackbar.make(view, "Memilih " + item, Snackbar.LENGTH_LONG).show();
+                jenisPemesananSave = item;
+                Snackbar.make(view, "Memilih " + jenisPemesananSave, Snackbar.LENGTH_LONG).show();
             }
         });
         spnKawasan.setItems(kawasan);
@@ -227,7 +264,8 @@ public class PemesananMobilFragment extends Fragment {
 
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
-                Snackbar.make(view, "Memilih " + item, Snackbar.LENGTH_LONG).show();
+                kawasanSave = item;
+                Snackbar.make(view, "Memilih " + kawasanSave, Snackbar.LENGTH_LONG).show();
             }
         });
         spnWitel.setItems(witel);
@@ -235,7 +273,8 @@ public class PemesananMobilFragment extends Fragment {
 
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
-                Snackbar.make(view, "Memilih " + item, Snackbar.LENGTH_LONG).show();
+                witelSave = item;
+                Snackbar.make(view, "Memilih " + witelSave, Snackbar.LENGTH_LONG).show();
             }
         });
         spnAreaPool.setItems(areaPool);
@@ -243,7 +282,8 @@ public class PemesananMobilFragment extends Fragment {
 
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
-                Snackbar.make(view, "Memilih " + item, Snackbar.LENGTH_LONG).show();
+                areaPoolSave = item;
+                Snackbar.make(view, "Memilih " + areaPoolSave, Snackbar.LENGTH_LONG).show();
             }
         });
         spnAreaTujuanKawasan.setItems(areaTujuanKawasan);
@@ -251,7 +291,8 @@ public class PemesananMobilFragment extends Fragment {
 
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
-                Snackbar.make(view, "Memilih " + item, Snackbar.LENGTH_LONG).show();
+                areaTujuanKawasanSave = item;
+                Snackbar.make(view, "Memilih " + areaTujuanKawasanSave, Snackbar.LENGTH_LONG).show();
             }
         });
         spnAreaTujuan.setItems(areaTujuanKawasanPilhan);
@@ -259,10 +300,62 @@ public class PemesananMobilFragment extends Fragment {
 
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
-                Snackbar.make(view, "Memilih " + item, Snackbar.LENGTH_LONG).show();
+                areaTujuanKawasanPilhanSave = item;
+                Snackbar.make(view, "Memilih " + areaTujuanKawasanPilhanSave, Snackbar.LENGTH_LONG).show();
+            }
+        });
+        spnJumlahPenumpang.setItems(jumlahIsiPenumpang);
+        spnJumlahPenumpang.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+
+            @Override
+            public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
+                jumlahIsiPenumpangSave = item;
+                Snackbar.make(view, "Memilih " + jumlahIsiPenumpangSave, Snackbar.LENGTH_LONG).show();
             }
         });
 
+        btnPesanSekarang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                pemesananUserPresenter.dataUserPemesanan(getActivity(), "1", namaPemesan
+////                        , jeniskeperluanSave, jenisPemesananSave, "Mobil H5609JK", kawasanSave, witelSave,
+////                        areaPoolSave, edtPenjemputan.getText().toString().trim(), areaTujuanKawasanSave + ", " + areaTujuanKawasanPilhanSave, tvAlamatDetail.getText().toString().trim(), String.valueOf(latitudeTujuan),
+////                        String.valueOf(longitudeBerangkat), String.valueOf(latitudeTujuan), String.valueOf(longitudeTUjuan), tvTanggal.getText().toString() + tvWaktu.getText().toString().trim(),
+////                        tvTanggalKepulangan.getText().toString().trim() + tvWaktuKepulangan.getText().toString().trim(), edtNoTeleponKantor.getText().toString().trim(),
+////                        edtNoHp.getText().toString().trim(), jumlahIsiPenumpangSave, edtIsiPenumpang.getText().toString().trim(), edtKeterangan.getText().toString().trim(), String.valueOf(stringJarak), String.valueOf(hitungHargaBBM), "YANI",
+////                        tvTokenPemesanan.getText().toString().trim());
+                pemesananUserPresenter.dataUserPemesanan(
+                        getActivity(),
+                "1",
+                namaPemesan,
+                jeniskeperluanSave,
+                jenisPemesananSave,
+                "MOBIL H55609", // ini masih static
+                kawasanSave,
+                witelSave,
+                areaPoolSave,
+                edtPenjemputan.getText().toString().trim(),
+                areaTujuanKawasanSave + ", " + areaTujuanKawasanPilhanSave,
+                placeName + ", " + placeNameAdress,
+                String.valueOf(latitudeBerangkat),
+                String.valueOf(longitudeBerangkat),
+                String.valueOf(latitudeTujuan),
+                String.valueOf(longitudeTUjuan),
+                tvTanggal.getText().toString().trim() + ", " + tvWaktu.getText().toString().trim(),
+                tvTanggalKepulangan.getText().toString().trim() + ", " + tvWaktuKepulangan.getText().toString().trim(),
+                edtNoTeleponKantor.getText().toString().trim(),
+                edtNoHp.getText().toString().trim(),
+                jumlahIsiPenumpangSave,
+                edtIsiPenumpang.getText().toString().trim(),
+                edtKeterangan.getText().toString().trim(),
+                String.valueOf(stringJarak),
+                String.valueOf(hitungHargaBBM),
+                "Yani Maria Christie",
+                tvTokenPemesanan.getText().toString().trim(),
+                        regID
+                );
+            }
+        });
 
         return view;
     }
@@ -274,17 +367,18 @@ public class PemesananMobilFragment extends Fragment {
             switch (requestCode) {
                 case PLACE_PICKER_REQUEST:
                     Place place = PlacePicker.getPlace(getActivity(), data);
-                    String placeNameAdress = String.format("%s", place.getAddress());
-                    String placeName = String.format("%s", place.getName());
+                     placeNameAdress = String.format("%s", place.getAddress());
+                     placeName= String.format("%s", place.getName());
                     latitudeTujuan = place.getLatLng().latitude;
                     longitudeTUjuan = place.getLatLng().longitude;
 
 //                    tvAlamatDetail.setText(placeName + ", " + placeNameAdress);
 //                    getDistance(latitudeBerangkat, longitudeBerangkat, latitudeTujuan, longitudeTUjuan);
                     hitungJarak = Haversine.hitungJarak(latitudeBerangkat, longitudeBerangkat, latitudeTujuan, longitudeTUjuan);
-                    double stringJarak = Double.parseDouble(String.format("%.2f", hitungJarak));
-                    double hitungHargaBBM = stringJarak* 7650;
-                    tvAlamatDetail.setText(stringJarak + ">>> " + "Rp." +hitungHargaBBM);
+                    stringJarak = Double.parseDouble(String.format("%.2f", hitungJarak));
+                    hitungHargaBBM = (stringJarak / 11.5) * 7650;
+//                    tvAlamatDetail.setText(stringJarak + ">>> " + "Rp." + hitungHargaBBM);
+                    tvAlamatDetail.setText(placeName + ", " + placeNameAdress);
             }
         }
     }
@@ -323,7 +417,7 @@ public class PemesananMobilFragment extends Fragment {
         tvTanggalKepulangan.setText(sdf.format(myCalendar.getTime()));
     }
 
-    public Double getDistance(Double firstLat, Double firstLong, Double secondLat, Double secondLong){
+    public Double getDistance(Double firstLat, Double firstLong, Double secondLat, Double secondLong) {
 
         double phi1 = firstLat * PI_RAD;
 
@@ -369,5 +463,8 @@ public class PemesananMobilFragment extends Fragment {
         tvKetukWaktuHideKepulangan = view.findViewById(R.id.tv_ketuk_waktu_hide_kepulangan);
         btnLocDetail = view.findViewById(R.id.btn_loc_detail);
         tvAlamatDetail = view.findViewById(R.id.tv_alamat_detail);
+        spnJumlahPenumpang = view.findViewById(R.id.spn_jumlah_penumpang);
+        edtIsiPenumpang = view.findViewById(R.id.edt_isi_penumpang);
+        btnPesanSekarang = view.findViewById(R.id.btn_pesan_sekarang);
     }
 }
