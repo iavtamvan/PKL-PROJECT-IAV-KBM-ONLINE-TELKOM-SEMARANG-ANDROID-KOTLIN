@@ -64,6 +64,27 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="Mobil"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/bree_serif"/>
+                <com.jaredrummler.materialspinner.MaterialSpinner
+                    android:id="@+id/spn_jenis_mobil"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="-- Pilih --"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorView"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:text="Keberangkatan"
                     android:textStyle="bold"
                     android:fontFamily="@font/bree_serif"/>

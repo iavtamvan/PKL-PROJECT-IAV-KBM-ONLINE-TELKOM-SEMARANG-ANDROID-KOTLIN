@@ -47,6 +47,12 @@ public interface ApiService {
             @Query("NAMA_PEMESAN") String NAMA_PEMESAN
     );
 
+    @GET("api_get.php")
+    Call<ArrayList<MobilModel>> getDataMobilByStatus(
+            @Query("change") String change,
+            @Query("TYPE_MOBIL") String TYPE_MOBIL
+    );
+
     @FormUrlEncoded
     @POST("user/api_tambah_registrasi.php")
     Call<ErrorModel> postRegisterUser(

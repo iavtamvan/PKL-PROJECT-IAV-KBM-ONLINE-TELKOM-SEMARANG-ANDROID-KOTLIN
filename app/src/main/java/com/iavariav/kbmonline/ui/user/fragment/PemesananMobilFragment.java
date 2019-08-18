@@ -29,16 +29,24 @@ import com.google.android.material.snackbar.Snackbar;
 import com.iavariav.kbmonline.R;
 import com.iavariav.kbmonline.helper.Config;
 import com.iavariav.kbmonline.metode.Haversine;
+import com.iavariav.kbmonline.model.MobilModel;
+import com.iavariav.kbmonline.model.PemesananModel;
+import com.iavariav.kbmonline.rest.ApiConfig;
+import com.iavariav.kbmonline.rest.ApiService;
 import com.iavariav.kbmonline.ui.user.presenter.PemesananUserPresenter;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Random;
 
 import im.delight.android.location.SimpleLocation;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static android.app.Activity.RESULT_OK;
 import static android.content.Context.MODE_PRIVATE;
@@ -51,7 +59,7 @@ import static java.lang.Math.sin;
  */
 public class PemesananMobilFragment extends Fragment {
     private String jeniskeperluan[] = {"-- PILIH --", "Reguler", "Sosial", "Event", "CAM", "Emergency", "Penanganan Gangguan", "Direksi"};
-    private String jenisPemesanan[] = {"-- PILIH --", "MOBIL", "MOBIL + SOPIR", "SOPIR"};
+    private String jenisPemesanan[] = {"-- PILIH --", "MOBIL", "MOBIL & SOPIR", "SOPIR"};
     private String kawasan[] = {"-- PILIH --", "JABAR-BANTEN", "JABODETABEK", "JATEN-DIY", "JATIM-BALI-NUSA", "KALIMANTAN", "PAMASULA"};
     private String witel[] = {"-- PILIH --", "Jateng Barut", "Jateng Barsel", "Jateng Utara", "Jateng Timur", "Jateng Tengah", "Jateng Selatan", "DI YOgyakarta", "Jateng Timsel"};
     private String areaPool[] = {"-- PILIH --", "SMG Johar", "SMG Pahlawan"};
@@ -101,6 +109,7 @@ public class PemesananMobilFragment extends Fragment {
     private EditText edtPenjemputan;
     private MaterialSpinner spnAreaTujuanKawasan;
     private MaterialSpinner spnAreaTujuan;
+    private MaterialSpinner spnJenisMobil;
     private LinearLayout divTanggalBerangkat;
     private TextView tvTanggal;
     private TextView tvKetukTanggalHide;
@@ -126,6 +135,7 @@ public class PemesananMobilFragment extends Fragment {
 
     private PemesananUserPresenter pemesananUserPresenter;
     private Button btnPesanSekarang;
+    private ArrayList<MobilModel> mobilModels;
 
 
     public PemesananMobilFragment() {
@@ -139,6 +149,7 @@ public class PemesananMobilFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_pemesanan_mobil, container, false);
         initView(view);
+        mobilModels = new ArrayList<>();
         pemesananUserPresenter = new PemesananUserPresenter();
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Config.SHARED_PREF_NAME, MODE_PRIVATE);
@@ -254,11 +265,42 @@ public class PemesananMobilFragment extends Fragment {
         spnJenisPemesanan.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
 
             @Override
-            public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
+            public void onItemSelected(MaterialSpinner view, final int position, long id, String item) {
                 jenisPemesananSave = item;
                 Snackbar.make(view, "Memilih " + jenisPemesananSave, Snackbar.LENGTH_LONG).show();
+
+                ApiService apiService = ApiConfig.getApiService();
+                apiService.getDataMobilByStatus("getDataMobilByType", jenisPemesananSave)
+                        .enqueue(new Callback<ArrayList<MobilModel>>() {
+                            @Override
+                            public void onResponse(Call<ArrayList<MobilModel>> call, Response<ArrayList<MobilModel>> response) {
+                                if (response.isSuccessful()){
+                                    mobilModels = response.body();
+                                    Toast.makeText(getActivity(), "" + mobilModels, Toast.LENGTH_SHORT).show();
+                                    for (int i = 0; i < mobilModels.size(); i++) {
+                                        spnJenisMobil.setItems(mobilModels.get(i).getTYPEMOBIL() + " " + mobilModels.get(i).getPLATMOBIL());
+
+                                    }
+
+//                            spnJenisMobil.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
+//                                @Override
+//                                public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
+//                                    Toast.makeText(getActivity(), "" + item, Toast.LENGTH_SHORT).show();
+//                                }
+//                            });
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<ArrayList<MobilModel>> call, Throwable t) {
+                                Toast.makeText(getActivity(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
             }
         });
+
+
+
         spnKawasan.setItems(kawasan);
         spnKawasan.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
 
@@ -326,32 +368,32 @@ public class PemesananMobilFragment extends Fragment {
 ////                        tvTokenPemesanan.getText().toString().trim());
                 pemesananUserPresenter.dataUserPemesanan(
                         getActivity(),
-                "1",
-                namaPemesan,
-                jeniskeperluanSave,
-                jenisPemesananSave,
-                "MOBIL H55609", // ini masih static
-                kawasanSave,
-                witelSave,
-                areaPoolSave,
-                edtPenjemputan.getText().toString().trim(),
-                areaTujuanKawasanSave + ", " + areaTujuanKawasanPilhanSave,
-                placeName + ", " + placeNameAdress,
-                String.valueOf(latitudeBerangkat),
-                String.valueOf(longitudeBerangkat),
-                String.valueOf(latitudeTujuan),
-                String.valueOf(longitudeTUjuan),
-                tvTanggal.getText().toString().trim() + ", " + tvWaktu.getText().toString().trim(),
-                tvTanggalKepulangan.getText().toString().trim() + ", " + tvWaktuKepulangan.getText().toString().trim(),
-                edtNoTeleponKantor.getText().toString().trim(),
-                edtNoHp.getText().toString().trim(),
-                jumlahIsiPenumpangSave,
-                edtIsiPenumpang.getText().toString().trim(),
-                edtKeterangan.getText().toString().trim(),
-                String.valueOf(stringJarak),
-                String.valueOf(hitungHargaBBM),
-                "Yani Maria Christie",
-                tvTokenPemesanan.getText().toString().trim(),
+                        "1",
+                        namaPemesan,
+                        jeniskeperluanSave,
+                        jenisPemesananSave,
+                        "MOBIL H55609", // ini masih static
+                        kawasanSave,
+                        witelSave,
+                        areaPoolSave,
+                        edtPenjemputan.getText().toString().trim(),
+                        areaTujuanKawasanSave + ", " + areaTujuanKawasanPilhanSave,
+                        placeName + ", " + placeNameAdress,
+                        String.valueOf(latitudeBerangkat),
+                        String.valueOf(longitudeBerangkat),
+                        String.valueOf(latitudeTujuan),
+                        String.valueOf(longitudeTUjuan),
+                        tvTanggal.getText().toString().trim() + ", " + tvWaktu.getText().toString().trim(),
+                        tvTanggalKepulangan.getText().toString().trim() + ", " + tvWaktuKepulangan.getText().toString().trim(),
+                        edtNoTeleponKantor.getText().toString().trim(),
+                        edtNoHp.getText().toString().trim(),
+                        jumlahIsiPenumpangSave,
+                        edtIsiPenumpang.getText().toString().trim(),
+                        edtKeterangan.getText().toString().trim(),
+                        String.valueOf(stringJarak),
+                        String.valueOf(hitungHargaBBM),
+                        "Yani Maria Christie",
+                        tvTokenPemesanan.getText().toString().trim(),
                         regID
                 );
             }
@@ -367,8 +409,8 @@ public class PemesananMobilFragment extends Fragment {
             switch (requestCode) {
                 case PLACE_PICKER_REQUEST:
                     Place place = PlacePicker.getPlace(getActivity(), data);
-                     placeNameAdress = String.format("%s", place.getAddress());
-                     placeName= String.format("%s", place.getName());
+                    placeNameAdress = String.format("%s", place.getAddress());
+                    placeName = String.format("%s", place.getName());
                     latitudeTujuan = place.getLatLng().latitude;
                     longitudeTUjuan = place.getLatLng().longitude;
 
@@ -466,5 +508,6 @@ public class PemesananMobilFragment extends Fragment {
         spnJumlahPenumpang = view.findViewById(R.id.spn_jumlah_penumpang);
         edtIsiPenumpang = view.findViewById(R.id.edt_isi_penumpang);
         btnPesanSekarang = view.findViewById(R.id.btn_pesan_sekarang);
+        spnJenisMobil = view.findViewById(R.id.spn_jenis_mobil);
     }
 }
