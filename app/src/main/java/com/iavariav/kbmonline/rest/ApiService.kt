@@ -30,7 +30,7 @@ interface ApiService {
     @GET("api_get.php")
     fun getDataHistoriAtasan(
             @Query("change") change: String,
-            @Query("ID_USER_ATASAN") idUser: String
+            @Query("ID_USER_ATASAN") idUser: String?
     ): Call<ArrayList<PemesananModel>>
 
     @GET("api_get.php")
@@ -46,7 +46,7 @@ interface ApiService {
     @GET("api_get.php")
     fun getDataUserHistoriPemesanan(
             @Query("change") change: String,
-            @Query("NAMA_PEMESAN") NAMA_PEMESAN: String
+            @Query("NAMA_PEMESAN") NAMA_PEMESAN: String?
     ): Call<ArrayList<PemesananModel>>
 
     @GET("api_get.php")
@@ -82,13 +82,13 @@ interface ApiService {
     @POST("user/api_tambah_pemesanan.php")
     fun postDataPemesanan(
             @Field("ID_USER_ATASAN") ID_USER_ATASAN: String,
-            @Field("NAMA_PEMESAN") NAMA_PEMESAN: String,
-            @Field("JENIS_KEPERLUAN") JENIS_KEPERLUAN: String,
-            @Field("JENIS_PEMESANAN") JENIS_PEMESANAN: String,
-            @Field("JENIS_KENDARAAN") JENIS_KENDARAAN: String,
-            @Field("KEBERANGKATAN_KAWASAN") KEBERANGKATAN_KAWASAN: String,
-            @Field("KEBERANGKATAN_WITEL") KEBERANGKATAN_WITEL: String,
-            @Field("KEBERANGKATAN_AREA_POOL") KEBERANGKATAN_AREA_POOL: String,
+            @Field("NAMA_PEMESAN") NAMA_PEMESAN: String?,
+            @Field("JENIS_KEPERLUAN") JENIS_KEPERLUAN: String?,
+            @Field("JENIS_PEMESANAN") JENIS_PEMESANAN: String?,
+            @Field("JENIS_KENDARAAN") JENIS_KENDARAAN: String?,
+            @Field("KEBERANGKATAN_KAWASAN") KEBERANGKATAN_KAWASAN: String?,
+            @Field("KEBERANGKATAN_WITEL") KEBERANGKATAN_WITEL: String?,
+            @Field("KEBERANGKATAN_AREA_POOL") KEBERANGKATAN_AREA_POOL: String?,
             @Field("TUJUAN_ALAMAT_JEMPUT") TUJUAN_ALAMAT_JEMPUT: String,
             @Field("TUJUAN_AREA") TUJUAN_AREA: String,
             @Field("TUJUAN_ALAMAT_DETAIL_MAPS") TUJUAN_ALAMAT_DETAIL_MAPS: String,
@@ -100,14 +100,14 @@ interface ApiService {
             @Field("WAKTU_KEPULANGAN") WAKTU_KEPULANGAN: String,
             @Field("NO_TELEPON_KANTOR") NO_TELEPON_KANTOR: String,
             @Field("NO_HP") NO_HP: String,
-            @Field("JUMLAH_PENUMPANG") JUMLAH_PENUMPANG: String,
+            @Field("JUMLAH_PENUMPANG") JUMLAH_PENUMPANG: String?,
             @Field("ISI_PENUMPANG") ISI_PENUMPANG: String,
             @Field("KETERANGAN") KETERANGAN: String,
             @Field("JARAK_PER_KM") JARAK_PER_KM: String,
             @Field("BENSIN_PER_LITER") BENSIN_PER_LITER: String,
             @Field("NAMA_ATASAN") NAMA_ATASAN: String,
             @Field("REG_TOKEN_PEMESANAN") REG_TOKEN_PEMESANAN: String,
-            @Field("REG_ID") REG_ID: String
+            @Field("REG_ID") REG_ID: String?
     ): Call<ResponseBody>
 
     //    @GET("api_get.php")

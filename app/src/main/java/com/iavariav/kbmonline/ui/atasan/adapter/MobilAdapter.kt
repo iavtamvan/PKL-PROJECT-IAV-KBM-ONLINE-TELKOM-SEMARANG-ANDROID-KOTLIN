@@ -1,11 +1,11 @@
 package com.iavariav.kbmonline.ui.atasan.adapter
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 
 import com.iavariav.kbmonline.R
@@ -14,7 +14,7 @@ import com.iavariav.kbmonline.model.MobilModel
 
 import java.util.ArrayList
 
-class MobilAdapter(private val mobilModels: ArrayList<MobilModel>, private val context: Context) : RecyclerView.Adapter<MobilAdapter.ViewHolder>() {
+class MobilAdapter(private val mobilModels: ArrayList<MobilModel>, private val context: FragmentActivity?) : RecyclerView.Adapter<MobilAdapter.ViewHolder>() {
 
     private var id: String? = null
 
@@ -24,8 +24,8 @@ class MobilAdapter(private val mobilModels: ArrayList<MobilModel>, private val c
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val sharedPreferences = context.getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE)
-        id = sharedPreferences.getString(Config.SHARED_PREF_ID, "")
+        val sharedPreferences = context?.getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE)
+        id = sharedPreferences?.getString(Config.SHARED_PREF_ID, "")
         holder.tvPlatMobilStatus.setText(mobilModels[position].platmobil + " | " + mobilModels[position].statusmobil)
         holder.tvJenisMobil.setText(mobilModels[position].jenismobil)
         holder.tvSopirMobil.setText(mobilModels[position].namasupir)

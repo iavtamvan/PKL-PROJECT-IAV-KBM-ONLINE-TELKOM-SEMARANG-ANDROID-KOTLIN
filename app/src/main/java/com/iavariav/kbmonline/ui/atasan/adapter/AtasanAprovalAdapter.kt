@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 
 import com.iavariav.kbmonline.R
@@ -26,7 +27,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class AtasanAprovalAdapter(private val context: Context, private val PemesananModels: ArrayList<PemesananModel>) : RecyclerView.Adapter<AtasanAprovalAdapter.ViewHolder>() {
+class AtasanAprovalAdapter(private val context: FragmentActivity?, private val PemesananModels: ArrayList<PemesananModel>) : RecyclerView.Adapter<AtasanAprovalAdapter.ViewHolder>() {
     private var id: String? = null
     private var regId: String? = null
 
@@ -36,8 +37,8 @@ class AtasanAprovalAdapter(private val context: Context, private val PemesananMo
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val sharedPreferences = context.getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE)
-        id = sharedPreferences.getString(Config.SHARED_PREF_ID, "")
+        val sharedPreferences = context?.getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE)
+        id = sharedPreferences?.getString(Config.SHARED_PREF_ID, "")
         holder.tvRegToken.text = PemesananModels[position].regtokenpemesanan
         holder.tvNama.text = PemesananModels[position].namapemesan
         holder.tvJenisKeperluan.text = PemesananModels[position].jeniskeperluan

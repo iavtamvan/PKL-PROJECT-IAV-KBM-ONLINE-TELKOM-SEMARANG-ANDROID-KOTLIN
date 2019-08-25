@@ -1,10 +1,9 @@
 package com.iavariav.kbmonline.ui.user.presenter
 
-import android.content.Context
 import android.widget.Toast
+import androidx.fragment.app.FragmentActivity
 
 import com.iavariav.kbmonline.rest.ApiConfig
-import com.iavariav.kbmonline.rest.ApiService
 
 import org.json.JSONException
 import org.json.JSONObject
@@ -19,15 +18,15 @@ import retrofit2.Response
 class PemesananUserPresenter {
 
     fun dataUserPemesanan(
-            context: Context,
+            context: FragmentActivity?,
             ID_USER_ATASAN: String,
-            NAMA_PEMESAN: String,
-            JENIS_KEPERLUAN: String,
-            JENIS_PEMESANAN: String,
-            JENIS_KENDARAAN: String,
-            KEBERANGKATAN_KAWASAN: String,
-            KEBERANGKATAN_WITEL: String,
-            KEBERANGKATAN_AREA_POOL: String,
+            NAMA_PEMESAN: String?,
+            JENIS_KEPERLUAN: String?,
+            JENIS_PEMESANAN: String?,
+            JENIS_KENDARAAN: String?,
+            KEBERANGKATAN_KAWASAN: String?,
+            KEBERANGKATAN_WITEL: String?,
+            KEBERANGKATAN_AREA_POOL: String?,
             TUJUAN_ALAMAT_JEMPUT: String,
             TUJUAN_AREA: String,
             TUJUAN_ALAMAT_DETAIL_MAPS: String,
@@ -39,14 +38,14 @@ class PemesananUserPresenter {
             WAKTU_KEPULANGAN: String,
             NO_TELEPON_KANTOR: String,
             NO_HP: String,
-            JUMLAH_PENUMPANG: String,
+            JUMLAH_PENUMPANG: String?,
             ISI_PENUMPANG: String,
             KETERANGAN: String,
             JARAK_PER_KM: String,
             BENSIN_PER_LITER: String,
             NAMA_ATASAN: String,
             REG_TOKEN_PEMESANAN: String,
-            REG_ID: String
+            REG_ID: String?
     ) {
 
         val apiService = ApiConfig.apiService

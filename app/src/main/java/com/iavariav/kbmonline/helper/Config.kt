@@ -18,6 +18,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 import android.content.Context.MODE_PRIVATE
+import androidx.fragment.app.FragmentActivity
 
 object Config {
     val SHARED_PREF_NAME = "KBM_TELKOM"
@@ -51,9 +52,10 @@ object Config {
         editor.apply()
     }
 
-    fun pushNotif(context: Context, tittle: String, message: String, pushtype: String, regid: String?) {
+    fun pushNotif(context: FragmentActivity?, tittle: String, message: String, pushtype: String, regid: String?) {
         val apiService = ApiConfig.apiService
-        apiService.postDataNotif(tittle, message, pushtype, regid)
+        regid?.let {
+            apiService.postDataNotif(tittle, message, pushtype, it)
                 .enqueue(object : Callback<ResponseBody> {
                     override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                         if (response.isSuccessful) {
@@ -74,6 +76,7 @@ object Config {
                         Toast.makeText(context, "" + t.message, Toast.LENGTH_SHORT).show()
                     }
                 })
+        }
     }
 
     fun logout(context: Context) {

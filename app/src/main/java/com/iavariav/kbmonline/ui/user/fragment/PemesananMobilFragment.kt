@@ -4,7 +4,6 @@ package com.iavariav.kbmonline.ui.user.fragment
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Intent
-import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
@@ -12,27 +11,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.DatePicker
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.TimePicker
 import android.widget.Toast
 
 import androidx.fragment.app.Fragment
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException
 import com.google.android.gms.common.GooglePlayServicesRepairableException
-import com.google.android.gms.location.places.Place
 import com.google.android.gms.location.places.ui.PlacePicker
 import com.google.android.material.snackbar.Snackbar
 import com.iavariav.kbmonline.R
 import com.iavariav.kbmonline.helper.Config
 import com.iavariav.kbmonline.metode.Haversine
 import com.iavariav.kbmonline.model.MobilModel
-import com.iavariav.kbmonline.model.PemesananModel
 import com.iavariav.kbmonline.rest.ApiConfig
-import com.iavariav.kbmonline.rest.ApiService
 import com.iavariav.kbmonline.ui.user.presenter.PemesananUserPresenter
 import com.jaredrummler.materialspinner.MaterialSpinner
 

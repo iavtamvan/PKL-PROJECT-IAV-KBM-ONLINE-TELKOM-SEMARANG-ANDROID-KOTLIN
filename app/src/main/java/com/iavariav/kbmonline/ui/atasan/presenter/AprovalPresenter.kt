@@ -1,16 +1,15 @@
 package com.iavariav.kbmonline.ui.atasan.presenter
 
-import android.content.Context
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.fragment.app.FragmentActivity
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 import com.iavariav.kbmonline.model.PemesananModel
 import com.iavariav.kbmonline.rest.ApiConfig
-import com.iavariav.kbmonline.rest.ApiService
 import com.iavariav.kbmonline.ui.atasan.adapter.AtasanAprovalAdapter
 
 import java.util.ArrayList
@@ -23,7 +22,7 @@ class AprovalPresenter {
     private var PemesananModels: ArrayList<PemesananModel>? = null
     private var atasanAprovalAdapter: AtasanAprovalAdapter? = null
 
-    fun getDatas(context: Context, rv: RecyclerView, div: LinearLayout) {
+    fun getDatas(context: FragmentActivity?, rv: RecyclerView?, div: LinearLayout?) {
         PemesananModels = ArrayList()
         val apiService = ApiConfig.apiService
         apiService.getAllData("getAllDataPemesanan")
@@ -32,16 +31,16 @@ class AprovalPresenter {
                         if (response.isSuccessful) {
                             PemesananModels = response.body()
                             atasanAprovalAdapter = AtasanAprovalAdapter(context, PemesananModels!!)
-                            rv.layoutManager = LinearLayoutManager(context)
-                            rv.adapter = atasanAprovalAdapter
+                            rv?.layoutManager = LinearLayoutManager(context)
+                            rv?.adapter = atasanAprovalAdapter
                             atasanAprovalAdapter!!.notifyDataSetChanged()
 
                             if (PemesananModels!!.isEmpty()) {
-                                rv.visibility = View.GONE
-                                div.visibility = View.VISIBLE
+                                rv?.visibility = View.GONE
+                                div?.visibility = View.VISIBLE
                             } else {
-                                rv.visibility = View.VISIBLE
-                                div.visibility = View.GONE
+                                rv?.visibility = View.VISIBLE
+                                div?.visibility = View.GONE
                             }
                         }
                     }
