@@ -46,9 +46,10 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         initView();
+        getSupportActionBar().hide();
         loginPresenter = new LoginPresenter();
         methodRequiresTwoPermission();
-        tvVersion.setText("Version apps " +BuildConfig.VERSION_CODE + "(build apps " + BuildConfig.VERSION_NAME + ")");
+        tvVersion.setText("Version apps " +BuildConfig.VERSION_CODE + " (build " + BuildConfig.VERSION_NAME + ")");
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
