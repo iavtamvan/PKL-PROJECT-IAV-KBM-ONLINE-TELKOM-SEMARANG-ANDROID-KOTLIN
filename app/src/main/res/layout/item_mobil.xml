@@ -20,12 +20,10 @@
                 android:layout_height="match_parent">
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/telkom_logo"/>
+                    android:layout_height="match_parent"/>
                 <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="#79000000">
+                    android:layout_height="match_parent">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -66,7 +64,6 @@
                                     android:layout_height="wrap_content"
                                     android:text="Jenis Mobil"
                                     android:textSize="12dp"
-                                    android:textColor="@android:color/white"
                                     android:textStyle="bold"
                                     android:fontFamily="@font/bree_serif"/>
                                 <TextView
@@ -74,14 +71,13 @@
                                     android:layout_height="wrap_content"
                                     android:text="MOBIL DINAS PT.TELKOM"
                                     android:id="@+id/tv_jenis_mobil"
-                                    android:textColor="@android:color/white"
                                     android:textSize="10dp"
                                     android:fontFamily="@font/bree_serif"/>
 
                                 <View
                                     android:layout_width="match_parent"
                                     android:layout_height="1dp"
-                                    android:background="@android:color/white"/>
+                                    android:background="@color/colorView"/>
                             </LinearLayout>
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -93,7 +89,6 @@
                                     android:layout_height="wrap_content"
                                     android:text="Type Mobil"
                                     android:textSize="12dp"
-                                    android:textColor="@android:color/white"
                                     android:textStyle="bold"
                                     android:fontFamily="@font/bree_serif"/>
                                 <TextView
@@ -101,14 +96,13 @@
                                     android:layout_height="wrap_content"
                                     android:text="MOBIL + SUPIR"
                                     android:id="@+id/tv_type_mobil"
-                                    android:textColor="@android:color/white"
                                     android:textSize="10dp"
                                     android:fontFamily="@font/bree_serif"/>
 
                                 <View
                                     android:layout_width="match_parent"
                                     android:layout_height="1dp"
-                                    android:background="@android:color/white"/>
+                                    android:background="@color/colorView"/>
                             </LinearLayout>
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -120,7 +114,6 @@
                                     android:layout_height="wrap_content"
                                     android:text="Nama Sopir Mobil"
                                     android:textSize="12dp"
-                                    android:textColor="@android:color/white"
                                     android:textStyle="bold"
                                     android:fontFamily="@font/bree_serif"/>
                                 <TextView
@@ -128,14 +121,13 @@
                                     android:layout_height="wrap_content"
                                     android:text="JUJUR SUPRIONO"
                                     android:id="@+id/tv_sopir_mobil"
-                                    android:textColor="@android:color/white"
                                     android:textSize="10dp"
                                     android:fontFamily="@font/bree_serif"/>
 
                                 <View
                                     android:layout_width="match_parent"
                                     android:layout_height="1dp"
-                                    android:background="@android:color/white"/>
+                                    android:background="@color/colorView"/>
                             </LinearLayout>
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -147,7 +139,6 @@
                                     android:layout_height="wrap_content"
                                     android:text="Nama Sopir Mobil"
                                     android:textSize="12dp"
-                                    android:textColor="@android:color/white"
                                     android:textStyle="bold"
                                     android:fontFamily="@font/bree_serif"/>
                                 <TextView
@@ -155,14 +146,13 @@
                                     android:layout_height="wrap_content"
                                     android:text="MOBIL BERISI 4 ORANG"
                                     android:id="@+id/tv_deskripsi_mobil"
-                                    android:textColor="@android:color/white"
                                     android:textSize="10dp"
                                     android:fontFamily="@font/bree_serif"/>
 
                                 <View
                                     android:layout_width="match_parent"
                                     android:layout_height="1dp"
-                                    android:background="@android:color/white"/>
+                                    android:background="@color/colorView"/>
                             </LinearLayout>
 
                         </LinearLayout>

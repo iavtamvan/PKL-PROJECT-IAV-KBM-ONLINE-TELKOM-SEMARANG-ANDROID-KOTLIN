@@ -5,12 +5,16 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.iavariav.kbmonline.R;
+import com.iavariav.kbmonline.model.MobilModel;
 import com.iavariav.kbmonline.ui.atasan.presenter.MobilPresenter;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,6 +24,8 @@ public class DataMobilFragment extends Fragment {
 
     private RecyclerView rv;
     private MobilPresenter mobilPresenter;
+    private ArrayList<MobilModel> mobilModels;
+    private LinearLayout div;
 
     public DataMobilFragment() {
         // Required empty public constructor
@@ -33,12 +39,13 @@ public class DataMobilFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_data_mobil, container, false);
         initView(view);
         mobilPresenter = new MobilPresenter();
-        mobilPresenter.getDataMobil(getActivity(), "getDataMobil", rv);
+        mobilPresenter.getDataMobil(getActivity(), "getDataMobil", rv, div);
 
         return view;
     }
 
     private void initView(View view) {
         rv = view.findViewById(R.id.rv);
+        div = view.findViewById(R.id.div);
     }
 }

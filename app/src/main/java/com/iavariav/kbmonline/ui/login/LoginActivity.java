@@ -11,11 +11,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.iavariav.kbmonline.BuildConfig;
 import com.iavariav.kbmonline.R;
 import com.iavariav.kbmonline.helper.Config;
 import com.iavariav.kbmonline.helper.NotificationUtils;
@@ -31,12 +33,14 @@ public class LoginActivity extends AppCompatActivity {
     private EditText edtNik;
     private EditText edtPassword;
     private Button btnLogin;
+    private TextView tvVersion;
 
     private LoginPresenter loginPresenter;
 
     private BroadcastReceiver mRegistrationBroadcastReceiver;
     private static final String TAG = SplashActivity.class.getSimpleName();
     private String regId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +48,7 @@ public class LoginActivity extends AppCompatActivity {
         initView();
         loginPresenter = new LoginPresenter();
         methodRequiresTwoPermission();
+        tvVersion.setText("Version apps " +BuildConfig.VERSION_CODE + "(build apps " + BuildConfig.VERSION_NAME + ")");
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -123,10 +128,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-
     private void initView() {
         edtNik = findViewById(R.id.edt_nik);
         edtPassword = findViewById(R.id.edt_password);
         btnLogin = findViewById(R.id.btn_login);
+        tvVersion = findViewById(R.id.tv_version);
     }
 }

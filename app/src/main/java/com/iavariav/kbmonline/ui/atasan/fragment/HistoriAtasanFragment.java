@@ -7,25 +7,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.widget.LinearLayout;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.iavariav.kbmonline.R;
 import com.iavariav.kbmonline.helper.Config;
-import com.iavariav.kbmonline.model.PemesananModel;
-import com.iavariav.kbmonline.rest.ApiConfig;
-import com.iavariav.kbmonline.rest.ApiService;
-import com.iavariav.kbmonline.ui.atasan.adapter.AtasanHistoriAprovalAdapter;
 import com.iavariav.kbmonline.ui.atasan.presenter.HistoriAtasanPresenter;
-
-import java.util.ArrayList;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,6 +24,7 @@ public class HistoriAtasanFragment extends Fragment {
     private String idUser;
 
     private HistoriAtasanPresenter historiAtasanPresenter;
+    private LinearLayout div;
 
     public HistoriAtasanFragment() {
         // Required empty public constructor
@@ -52,7 +42,7 @@ public class HistoriAtasanFragment extends Fragment {
         idUser = sharedPreferences.getString(Config.SHARED_PREF_ID, "");
 
         historiAtasanPresenter = new HistoriAtasanPresenter();
-        historiAtasanPresenter.getDatas(getActivity(), idUser, rv);
+        historiAtasanPresenter.getDatas(getActivity(), idUser, rv, div);
 
         return view;
     }
@@ -60,5 +50,6 @@ public class HistoriAtasanFragment extends Fragment {
 
     private void initView(View view) {
         rv = view.findViewById(R.id.rv);
+        div = view.findViewById(R.id.div);
     }
 }

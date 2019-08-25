@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.widget.LinearLayout;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,6 +24,8 @@ public class HistoriUserFragment extends Fragment {
 
     private RecyclerView rv;
     private HistoriUserPresenter historiUserPresenter;
+    private LinearLayout div;
+
     public HistoriUserFragment() {
         // Required empty public constructor
     }
@@ -39,12 +41,13 @@ public class HistoriUserFragment extends Fragment {
         String namaLengkap = sharedPreferences.getString(Config.SHARED_PREF_NAMA_LENGKAP, "");
 //        Toast.makeText(getActivity(), "" + namaLengkap, Toast.LENGTH_SHORT).show();
         historiUserPresenter = new HistoriUserPresenter();
-        historiUserPresenter.getDataHistoriUser(getActivity(), namaLengkap, rv);
+        historiUserPresenter.getDataHistoriUser(getActivity(), namaLengkap, rv, div);
 
         return view;
     }
 
     private void initView(View view) {
         rv = view.findViewById(R.id.rv);
+        div = view.findViewById(R.id.div);
     }
 }

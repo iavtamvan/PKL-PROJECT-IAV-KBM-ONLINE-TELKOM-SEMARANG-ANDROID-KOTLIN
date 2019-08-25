@@ -1,6 +1,8 @@
 package com.iavariav.kbmonline.ui.atasan.presenter;
 
 import android.content.Context;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,7 +23,7 @@ public class HistoriAtasanPresenter {
     private ArrayList<PemesananModel> pemesananModels;
     private AtasanHistoriAprovalAdapter atasanHistoriAprovalAdapter;
 
-    public void getDatas(final Context context, String idUser, final RecyclerView recyclerView){
+    public void getDatas(final Context context, String idUser, final RecyclerView recyclerView, final LinearLayout div){
         pemesananModels = new ArrayList<>();
         ApiService apiService = ApiConfig.getApiService();
         apiService.getDataHistoriAtasan("getHistoriAtasan", idUser)
@@ -34,6 +36,15 @@ public class HistoriAtasanPresenter {
                             recyclerView.setLayoutManager(new LinearLayoutManager(context));
                             recyclerView.setAdapter(atasanHistoriAprovalAdapter);
                             atasanHistoriAprovalAdapter.notifyDataSetChanged();
+
+
+                            if (pemesananModels.isEmpty()) {
+                                recyclerView.setVisibility(View.GONE);
+                                div.setVisibility(View.VISIBLE);
+                            } else {
+                                recyclerView.setVisibility(View.VISIBLE);
+                                div.setVisibility(View.GONE);
+                            }
                         }
                     }
 

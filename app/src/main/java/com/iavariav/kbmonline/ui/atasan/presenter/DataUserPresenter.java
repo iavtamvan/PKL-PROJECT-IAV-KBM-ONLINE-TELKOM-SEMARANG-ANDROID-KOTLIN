@@ -1,6 +1,8 @@
 package com.iavariav.kbmonline.ui.atasan.presenter;
 
 import android.content.Context;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -20,7 +22,7 @@ import retrofit2.Response;
 public class DataUserPresenter {
     private DataUserAdapter dataUserAdapter;
     private ArrayList<UserModel> userModels;
-    public void dataUSer(final Context context, String change, final RecyclerView recyclerView){
+    public void dataUSer(final Context context, String change, final RecyclerView recyclerView, final LinearLayout div){
         userModels = new ArrayList<>();
         ApiService apiService = ApiConfig.getApiService();
         apiService.getDataUser(change)
@@ -33,6 +35,14 @@ public class DataUserPresenter {
                             recyclerView.setLayoutManager(new LinearLayoutManager(context));
                             recyclerView.setAdapter(dataUserAdapter);
                             dataUserAdapter.notifyDataSetChanged();
+
+                            if (userModels.isEmpty()) {
+                                recyclerView.setVisibility(View.GONE);
+                                div.setVisibility(View.VISIBLE);
+                            } else {
+                                recyclerView.setVisibility(View.VISIBLE);
+                                div.setVisibility(View.GONE);
+                            }
                         }
                     }
 

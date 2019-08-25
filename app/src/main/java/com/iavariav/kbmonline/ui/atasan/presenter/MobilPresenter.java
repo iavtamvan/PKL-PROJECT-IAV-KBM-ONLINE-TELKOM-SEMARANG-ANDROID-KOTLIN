@@ -1,6 +1,8 @@
 package com.iavariav.kbmonline.ui.atasan.presenter;
 
 import android.content.Context;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -22,7 +24,7 @@ public class MobilPresenter {
     private ArrayList<MobilModel> mobilModels;
     private MobilAdapter mobilAdapter;
 
-    public void getDataMobil(final Context context, String change, final RecyclerView recyclerView){
+    public void getDataMobil(final Context context, String change, final RecyclerView recyclerView, final LinearLayout div){
         mobilModels = new ArrayList<>();
         ApiService apiService = ApiConfig.getApiService();
         apiService.getDataMobil(change)
@@ -35,6 +37,14 @@ public class MobilPresenter {
                             recyclerView.setLayoutManager(new LinearLayoutManager(context));
                             recyclerView.setAdapter(mobilAdapter);
                             mobilAdapter.notifyDataSetChanged();
+
+                            if (mobilModels.isEmpty()) {
+                                recyclerView.setVisibility(View.GONE);
+                                div.setVisibility(View.VISIBLE);
+                            } else {
+                                recyclerView.setVisibility(View.VISIBLE);
+                                div.setVisibility(View.GONE);
+                            }
                         }
                     }
 
