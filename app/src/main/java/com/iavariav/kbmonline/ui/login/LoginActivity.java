@@ -66,14 +66,14 @@ public class LoginActivity extends AppCompatActivity {
             public void onReceive(Context context, Intent intent) {
 
                 // checking for type intent filter
-                if (intent.getAction().equals(Config.REGISTRATION_COMPLETE)) {
+                if (intent.getAction().equals(Config.INSTANCE.getREGISTRATION_COMPLETE())) {
                     // gcm successfully registered
                     // now subscribe to `global` topic to receive app wide notifications
-                    FirebaseMessaging.getInstance().subscribeToTopic(Config.TOPIC_GLOBAL);
+                    FirebaseMessaging.getInstance().subscribeToTopic(Config.INSTANCE.getTOPIC_GLOBAL());
 
                     displayFirebaseRegId();
 
-                } else if (intent.getAction().equals(Config.PUSH_NOTIFICATION)) {
+                } else if (intent.getAction().equals(Config.INSTANCE.getPUSH_NOTIFICATION())) {
                     // new push notification is received
 
                     String message = intent.getStringExtra("message");
@@ -103,15 +103,15 @@ public class LoginActivity extends AppCompatActivity {
 
         // register GCM registration complete receiver
         LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
-                new IntentFilter(Config.REGISTRATION_COMPLETE));
+                new IntentFilter(Config.INSTANCE.getREGISTRATION_COMPLETE()));
 
         // register new push message receiver
         // by doing this, the activity will be notified each time a new message arrives
         LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
-                new IntentFilter(Config.PUSH_NOTIFICATION));
+                new IntentFilter(Config.INSTANCE.getPUSH_NOTIFICATION()));
 
         // clear the notification area when the app is opened
-        NotificationUtils.clearNotifications(getApplicationContext());
+        NotificationUtils.Companion.clearNotifications(getApplicationContext());
     }
 
     @Override
@@ -123,7 +123,7 @@ public class LoginActivity extends AppCompatActivity {
     // Fetches reg id from shared preferences
     // and displays on the screen
     private void displayFirebaseRegId() {
-        SharedPreferences pref = getApplicationContext().getSharedPreferences(Config.SHARED_PREF_NAME, 0);
+        SharedPreferences pref = getApplicationContext().getSharedPreferences(Config.INSTANCE.getSHARED_PREF_NAME(), 0);
         regId = pref.getString("regId", null);
         Log.e(TAG, "Firebase reg id: " + regId);
     }

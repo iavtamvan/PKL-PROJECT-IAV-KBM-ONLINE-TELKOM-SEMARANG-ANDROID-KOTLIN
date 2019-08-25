@@ -29,11 +29,11 @@ public class LoginPresenter {
                         if (response.isSuccessful()){
                             loginModel = response.body();
 //                            Toast.makeText(context, "" + loginModel.getUsername(), Toast.LENGTH_SHORT).show();
-                            SharedPreferences sharedPreferences = context.getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+                            SharedPreferences sharedPreferences = context.getSharedPreferences(Config.INSTANCE.getSHARED_PREF_NAME(), Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.putString(Config.SHARED_PREF_ID, loginModel.getId());
-                            editor.putString(Config.SHARED_PREF_NAMA_LENGKAP, loginModel.getUsername());
-                            editor.putString(Config.SHARED_PREF_RULE, loginModel.getRule());
+                            editor.putString(Config.INSTANCE.getSHARED_PREF_ID(), loginModel.getId());
+                            editor.putString(Config.INSTANCE.getSHARED_PREF_NAMA_LENGKAP(), loginModel.getUsername());
+                            editor.putString(Config.INSTANCE.getSHARED_PREF_RULE(), loginModel.getRule());
                             editor.apply();
                             String regID = sharedPreferences.getString("regId", "");
                             updateRegID(context, regID, loginModel.getId());

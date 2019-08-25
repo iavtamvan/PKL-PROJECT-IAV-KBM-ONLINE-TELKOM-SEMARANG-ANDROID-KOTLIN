@@ -36,8 +36,8 @@ public class MobilAdapter extends RecyclerView.Adapter<MobilAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        id = sharedPreferences.getString(Config.SHARED_PREF_ID, "");
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Config.INSTANCE.getSHARED_PREF_NAME(), Context.MODE_PRIVATE);
+        id = sharedPreferences.getString(Config.INSTANCE.getSHARED_PREF_ID(), "");
         holder.tvPlatMobilStatus.setText(mobilModels.get(position).getPLATMOBIL() + " | " + mobilModels.get(position).getSTATUSMOBIL());
         holder.tvJenisMobil.setText(mobilModels.get(position).getJENISMOBIL());
         holder.tvSopirMobil.setText(mobilModels.get(position).getNAMASUPIR());

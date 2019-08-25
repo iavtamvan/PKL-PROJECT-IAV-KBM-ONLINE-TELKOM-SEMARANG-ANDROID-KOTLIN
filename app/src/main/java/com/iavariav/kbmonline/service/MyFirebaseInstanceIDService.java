@@ -23,7 +23,7 @@ public class MyFirebaseInstanceIDService extends IntentService {
     }
 
     private void storeRegIdInPref(String token) {
-        SharedPreferences pref = getApplicationContext().getSharedPreferences(Config.SHARED_PREF_NAME, 0);
+        SharedPreferences pref = getApplicationContext().getSharedPreferences(Config.INSTANCE.getSHARED_PREF_NAME(), 0);
         SharedPreferences.Editor editor = pref.edit();
         editor.putString("regId", token);
         editor.apply();
@@ -40,7 +40,7 @@ public class MyFirebaseInstanceIDService extends IntentService {
         sendRegistrationToServer(refreshedToken);
 
         // Notify UI that registration has completed, so the progress indicator can be hidden.
-        Intent registrationComplete = new Intent(Config.REGISTRATION_COMPLETE);
+        Intent registrationComplete = new Intent(Config.INSTANCE.getREGISTRATION_COMPLETE());
         registrationComplete.putExtra("token", refreshedToken);
         LocalBroadcastManager.getInstance(this).sendBroadcast(registrationComplete);
     }

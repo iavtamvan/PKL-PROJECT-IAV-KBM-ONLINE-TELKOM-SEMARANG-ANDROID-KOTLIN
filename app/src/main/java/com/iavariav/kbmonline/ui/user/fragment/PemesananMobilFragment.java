@@ -153,9 +153,9 @@ public class PemesananMobilFragment extends Fragment {
         mobilModels = new ArrayList<>();
         pemesananUserPresenter = new PemesananUserPresenter();
 
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Config.SHARED_PREF_NAME, MODE_PRIVATE);
-        namaPemesan = sharedPreferences.getString(Config.SHARED_PREF_NAMA_LENGKAP, "");
-        idUser = sharedPreferences.getString(Config.SHARED_PREF_ID, "");
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Config.INSTANCE.getSHARED_PREF_NAME(), MODE_PRIVATE);
+        namaPemesan = sharedPreferences.getString(Config.INSTANCE.getSHARED_PREF_NAMA_LENGKAP(), "");
+        idUser = sharedPreferences.getString(Config.INSTANCE.getSHARED_PREF_ID(), "");
         regID = sharedPreferences.getString("regId", "");
 
 

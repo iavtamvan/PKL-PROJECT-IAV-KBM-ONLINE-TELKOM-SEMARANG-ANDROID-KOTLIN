@@ -36,8 +36,8 @@ public class AtasanHistoriAprovalAdapter extends RecyclerView.Adapter<AtasanHist
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        id = sharedPreferences.getString(Config.SHARED_PREF_ID, "");
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Config.INSTANCE.getSHARED_PREF_NAME(), Context.MODE_PRIVATE);
+        id = sharedPreferences.getString(Config.INSTANCE.getSHARED_PREF_ID(), "");
         holder.tvRegToken.setText(PemesananModels.get(position).getREGTOKENPEMESANAN());
         holder.tvNama.setText(PemesananModels.get(position).getNAMAPEMESAN());
         holder.tvJenisKeperluan.setText(PemesananModels.get(position).getJENISKEPERLUAN());

@@ -38,8 +38,8 @@ public class HistoriAtasanFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_histori_atasan, container, false);
         initView(view);
 
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        idUser = sharedPreferences.getString(Config.SHARED_PREF_ID, "");
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Config.INSTANCE.getSHARED_PREF_NAME(), Context.MODE_PRIVATE);
+        idUser = sharedPreferences.getString(Config.INSTANCE.getSHARED_PREF_ID(), "");
 
         historiAtasanPresenter = new HistoriAtasanPresenter();
         historiAtasanPresenter.getDatas(getActivity(), idUser, rv, div);

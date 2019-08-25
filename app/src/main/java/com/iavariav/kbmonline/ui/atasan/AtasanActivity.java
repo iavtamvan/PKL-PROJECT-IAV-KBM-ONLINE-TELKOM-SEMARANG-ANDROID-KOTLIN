@@ -135,7 +135,7 @@ public class AtasanActivity extends AppCompatActivity
             getSupportActionBar().setTitle("Data Mobil");
         }
         else if (id == R.id.logout) {
-            Config.logout(AtasanActivity.this);
+            Config.INSTANCE.logout(AtasanActivity.this);
             finishAffinity();
         }
 

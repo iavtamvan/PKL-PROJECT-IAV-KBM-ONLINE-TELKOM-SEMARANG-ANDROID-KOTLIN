@@ -35,8 +35,8 @@ public class DataUserAdapter extends RecyclerView.Adapter<DataUserAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        id = sharedPreferences.getString(Config.SHARED_PREF_ID, "");
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Config.INSTANCE.getSHARED_PREF_NAME(), Context.MODE_PRIVATE);
+        id = sharedPreferences.getString(Config.INSTANCE.getSHARED_PREF_ID(), "");
         holder.tvNamaUser.setText(userModels.get(position).getNAMAUSER());
         holder.tvNik.setText(userModels.get(position).getNIKUSER());
         holder.tvRule.setText(userModels.get(position).getRULEUSER());

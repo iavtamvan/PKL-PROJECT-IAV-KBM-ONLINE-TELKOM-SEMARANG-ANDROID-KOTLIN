@@ -26,9 +26,9 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                SharedPreferences sp = getSharedPreferences(Config.SHARED_PREF_NAME, MODE_PRIVATE);
-                String username = sp.getString(Config.SHARED_PREF_NAMA_LENGKAP, "");
-                String rule = sp.getString(Config.SHARED_PREF_RULE, "");
+                SharedPreferences sp = getSharedPreferences(Config.INSTANCE.getSHARED_PREF_NAME(), MODE_PRIVATE);
+                String username = sp.getString(Config.INSTANCE.getSHARED_PREF_NAMA_LENGKAP(), "");
+                String rule = sp.getString(Config.INSTANCE.getSHARED_PREF_RULE(), "");
 
                 // TODO jika belum masuk ke LoginActivity
                 if (username.equalsIgnoreCase("") || TextUtils.isEmpty(username)){

@@ -98,7 +98,7 @@ public class UserActivity extends AppCompatActivity
             fragmentManager.beginTransaction().replace(R.id.fm_view_pager_nav, new HistoriUserFragment()).commit();
             getSupportActionBar().setTitle("Histori Pemesanan");
         } else if (id == R.id.logout) {
-            Config.logout(UserActivity.this);
+            Config.INSTANCE.logout(UserActivity.this);
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

@@ -60,9 +60,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     }
 
     private void handleNotification(String message) {
-        if (!NotificationUtils.isAppIsInBackground(getApplicationContext())) {
+        if (!NotificationUtils.Companion.isAppIsInBackground(getApplicationContext())) {
             // app is in foreground, broadcast the push message
-            Intent pushNotification = new Intent(Config.PUSH_NOTIFICATION);
+            Intent pushNotification = new Intent(Config.INSTANCE.getPUSH_NOTIFICATION());
             pushNotification.putExtra("message", message);
             LocalBroadcastManager.getInstance(this).sendBroadcast(pushNotification);
 
@@ -95,9 +95,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             Log.e(TAG, "timestamp: " + timestamp);
 
 
-            if (!NotificationUtils.isAppIsInBackground(getApplicationContext())) {
+            if (!NotificationUtils.Companion.isAppIsInBackground(getApplicationContext())) {
                 // app is in foreground, broadcast the push message
-                Intent pushNotification = new Intent(Config.PUSH_NOTIFICATION);
+                Intent pushNotification = new Intent(Config.INSTANCE.getPUSH_NOTIFICATION());
                 pushNotification.putExtra("message", message);
                 LocalBroadcastManager.getInstance(this).sendBroadcast(pushNotification);
 
