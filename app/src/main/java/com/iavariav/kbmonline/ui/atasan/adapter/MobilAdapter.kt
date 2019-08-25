@@ -26,11 +26,11 @@ class MobilAdapter(private val mobilModels: ArrayList<MobilModel>, private val c
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val sharedPreferences = context.getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE)
         id = sharedPreferences.getString(Config.SHARED_PREF_ID, "")
-        holder.tvPlatMobilStatus.setText(mobilModels[position].getPLATMOBIL() + " | " + mobilModels[position].getSTATUSMOBIL())
-        holder.tvJenisMobil.setText(mobilModels[position].getJENISMOBIL())
-        holder.tvSopirMobil.setText(mobilModels[position].getNAMASUPIR())
-        holder.tvTypeMobil.setText(mobilModels[position].getTYPEMOBIL())
-        holder.tvDeskripsiMobil.setText(mobilModels[position].getDESKRIPSIMOBIL())
+        holder.tvPlatMobilStatus.setText(mobilModels[position].platmobil + " | " + mobilModels[position].statusmobil)
+        holder.tvJenisMobil.setText(mobilModels[position].jenismobil)
+        holder.tvSopirMobil.setText(mobilModels[position].namasupir)
+        holder.tvTypeMobil.setText(mobilModels[position].typemobil)
+        holder.tvDeskripsiMobil.setText(mobilModels[position].deskripsimobil)
 
     }
 
@@ -41,11 +41,11 @@ class MobilAdapter(private val mobilModels: ArrayList<MobilModel>, private val c
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        private val tvPlatMobilStatus: TextView
-        private val tvJenisMobil: TextView
-        private val tvTypeMobil: TextView
-        private val tvSopirMobil: TextView
-        private val tvDeskripsiMobil: TextView
+        val tvPlatMobilStatus: TextView
+        val tvJenisMobil: TextView
+        val tvTypeMobil: TextView
+        val tvSopirMobil: TextView
+        val tvDeskripsiMobil: TextView
 
         init {
             tvPlatMobilStatus = itemView.findViewById(R.id.tv_plat_mobil_status)

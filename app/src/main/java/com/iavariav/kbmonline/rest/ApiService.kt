@@ -68,7 +68,7 @@ interface ApiService {
     @POST("approvel/api_update_aprovel.php")
     fun updateStatusPemesanan(
             @Field("ID_PEMESANAN") idPesanan: String,
-            @Field("ID_USER_ATASAN") idUserAtasan: String,
+            @Field("ID_USER_ATASAN") idUserAtasan: String?,
             @Field("STATUS_PEMESANAN") status: String
     ): Call<ResponseBody>
 

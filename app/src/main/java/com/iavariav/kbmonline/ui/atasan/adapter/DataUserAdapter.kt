@@ -25,9 +25,9 @@ class DataUserAdapter(private val context: Context, private val userModels: Arra
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val sharedPreferences = context.getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE)
         id = sharedPreferences.getString(Config.SHARED_PREF_ID, "")
-        holder.tvNamaUser.setText(userModels[position].getNAMAUSER())
-        holder.tvNik.setText(userModels[position].getNIKUSER())
-        holder.tvRule.setText(userModels[position].getRULEUSER())
+        holder.tvNamaUser.setText(userModels[position].namauser)
+        holder.tvNik.setText(userModels[position].nikuser)
+        holder.tvRule.setText(userModels[position].ruleuser)
 
     }
 
@@ -37,9 +37,9 @@ class DataUserAdapter(private val context: Context, private val userModels: Arra
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val tvNamaUser: TextView
-        private val tvNik: TextView
-        private val tvRule: TextView
+        val tvNamaUser: TextView
+        val tvNik: TextView
+        val tvRule: TextView
 
         init {
             tvNamaUser = itemView.findViewById(R.id.tv_nama_user)

@@ -21,7 +21,7 @@ public class LoginPresenter {
     private LoginModel loginModel;
 
     public void login(final Context context, String username, String password){
-        ApiService apiService = ApiConfig.getApiService();
+        ApiService apiService = ApiConfig.INSTANCE.getApiService();
         apiService.login(username, password)
                 .enqueue(new Callback<LoginModel>() {
                     @Override
@@ -57,7 +57,7 @@ public class LoginPresenter {
     }
 
     private void updateRegID(final Context context, String regID, String idUser) {
-        ApiService apiService = ApiConfig.getApiService();
+        ApiService apiService = ApiConfig.INSTANCE.getApiService();
         apiService.updateRegID(regID, idUser)
                 .enqueue(new Callback<ResponseBody>() {
                     @Override

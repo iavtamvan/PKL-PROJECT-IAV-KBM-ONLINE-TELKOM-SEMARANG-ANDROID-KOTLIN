@@ -2,12 +2,10 @@ package com.iavariav.kbmonline.helper
 
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.widget.Toast
 
 import com.iavariav.kbmonline.ui.login.LoginActivity
 import com.iavariav.kbmonline.rest.ApiConfig
-import com.iavariav.kbmonline.rest.ApiService
 
 import org.json.JSONException
 import org.json.JSONObject
@@ -53,8 +51,8 @@ object Config {
         editor.apply()
     }
 
-    fun pushNotif(context: Context, tittle: String, message: String, pushtype: String, regid: String) {
-        val apiService = ApiConfig.getApiService()
+    fun pushNotif(context: Context, tittle: String, message: String, pushtype: String, regid: String?) {
+        val apiService = ApiConfig.apiService
         apiService.postDataNotif(tittle, message, pushtype, regid)
                 .enqueue(object : Callback<ResponseBody> {
                     override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {

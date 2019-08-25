@@ -25,7 +25,7 @@ public class HistoriUserPresenter {
 
     public void getDataHistoriUser(final Context context, String namaPemesan, final RecyclerView recyclerView, final LinearLayout div){
         pemesananModels = new ArrayList<>();
-        ApiService apiService = ApiConfig.getApiService();
+        ApiService apiService = ApiConfig.INSTANCE.getApiService();
         apiService.getDataUserHistoriPemesanan("getDataPemesanan", namaPemesan)
                 .enqueue(new Callback<ArrayList<PemesananModel>>() {
                     @Override

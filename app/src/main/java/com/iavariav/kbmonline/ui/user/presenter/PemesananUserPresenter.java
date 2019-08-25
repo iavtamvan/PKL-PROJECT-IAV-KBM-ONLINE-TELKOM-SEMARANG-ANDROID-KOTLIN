@@ -49,7 +49,7 @@ public class PemesananUserPresenter {
             String REG_ID
     ){
 
-        ApiService apiService = ApiConfig.getApiService();
+        ApiService apiService = ApiConfig.INSTANCE.getApiService();
         apiService.postDataPemesanan(
                 ID_USER_ATASAN,
                 NAMA_PEMESAN,

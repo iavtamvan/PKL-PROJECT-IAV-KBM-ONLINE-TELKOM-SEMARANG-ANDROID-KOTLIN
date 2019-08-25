@@ -271,7 +271,7 @@ public class PemesananMobilFragment extends Fragment {
                 jenisPemesananSave = item;
                 Snackbar.make(view, "Memilih " + jenisPemesananSave, Snackbar.LENGTH_LONG).show();
 
-                ApiService apiService = ApiConfig.getApiService();
+                ApiService apiService = ApiConfig.INSTANCE.getApiService();
                 apiService.getDataMobilByStatus("getDataMobilByType", jenisPemesananSave)
                         .enqueue(new Callback<ArrayList<MobilModel>>() {
                             @Override
@@ -419,7 +419,7 @@ public class PemesananMobilFragment extends Fragment {
 
 //                    tvAlamatDetail.setText(placeName + ", " + placeNameAdress);
 //                    getDistance(latitudeBerangkat, longitudeBerangkat, latitudeTujuan, longitudeTUjuan);
-                    hitungJarak = Haversine.hitungJarak(latitudeBerangkat, longitudeBerangkat, latitudeTujuan, longitudeTUjuan);
+                    hitungJarak = Haversine.INSTANCE.hitungJarak(latitudeBerangkat, longitudeBerangkat, latitudeTujuan, longitudeTUjuan);
                     stringJarak = Double.parseDouble(String.format("%.2f", hitungJarak));
                     hitungHargaBBM = (stringJarak / 11.5) * 7650;
 //                    tvAlamatDetail.setText(stringJarak + ">>> " + "Rp." + hitungHargaBBM);

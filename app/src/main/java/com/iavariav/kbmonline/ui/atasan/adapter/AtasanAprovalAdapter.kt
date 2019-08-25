@@ -1,7 +1,6 @@
 package com.iavariav.kbmonline.ui.atasan.adapter
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +13,6 @@ import com.iavariav.kbmonline.R
 import com.iavariav.kbmonline.helper.Config
 import com.iavariav.kbmonline.model.PemesananModel
 import com.iavariav.kbmonline.rest.ApiConfig
-import com.iavariav.kbmonline.rest.ApiService
 import com.iavariav.kbmonline.ui.atasan.AtasanActivity
 
 import org.json.JSONException
@@ -63,17 +61,17 @@ class AtasanAprovalAdapter(private val context: Context, private val PemesananMo
         // jika disetujui
         holder.ivDisetujui.setOnClickListener {
             //                Toast.makeText(context, "Disetujui" + PemesananModels.get(position).getIDPEMESANAN() + "id : " + id, Toast.LENGTH_SHORT).show();
-            updateDatas(PemesananModels[position].idpemesanan, id, "APPROVED", "Pesanan anda disetujui Pimpinan")
+            PemesananModels[position].idpemesanan?.let { it1 -> updateDatas(it1, id, "APPROVED", "Pesanan anda disetujui Pimpinan") }
         }
 
         // jika ditolak
-        holder.ivDitolak.setOnClickListener { updateDatas(PemesananModels[position].idpemesanan, id, "NOT APROVVED", "Pesanan anda ditolak oleh Pimpinan") }
+        holder.ivDitolak.setOnClickListener { PemesananModels[position].idpemesanan?.let { it1 -> updateDatas(it1, id, "NOT APROVVED", "Pesanan anda ditolak oleh Pimpinan") } }
 
 
     }
 
     private fun updateDatas(id: String, idAtasan: String?, status: String, message: String) {
-        val apiService = ApiConfig.getApiService()
+        val apiService = ApiConfig.apiService
         apiService.updateStatusPemesanan(id, idAtasan, status)
                 .enqueue(object : Callback<ResponseBody> {
                     override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
