@@ -19,6 +19,7 @@ import com.iavariav.kbmonline.model.PemesananModel;
 import com.iavariav.kbmonline.rest.ApiConfig;
 import com.iavariav.kbmonline.rest.ApiService;
 import com.iavariav.kbmonline.ui.atasan.adapter.AtasanHistoriAprovalAdapter;
+import com.iavariav.kbmonline.ui.atasan.presenter.HistoriAtasanPresenter;
 
 import java.util.ArrayList;
 
@@ -31,10 +32,9 @@ import retrofit2.Response;
  */
 public class HistoriAtasanFragment extends Fragment {
     private RecyclerView rv;
-    private AtasanHistoriAprovalAdapter atasanHistoriAprovalAdapter;
-    private ArrayList<PemesananModel> PemesananModels;
-
     private String idUser;
+
+    private HistoriAtasanPresenter historiAtasanPresenter;
 
     public HistoriAtasanFragment() {
         // Required empty public constructor
@@ -51,34 +51,12 @@ public class HistoriAtasanFragment extends Fragment {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
         idUser = sharedPreferences.getString(Config.SHARED_PREF_ID, "");
 
-        PemesananModels = new ArrayList<>();
-        getDatas();
+        historiAtasanPresenter = new HistoriAtasanPresenter();
+        historiAtasanPresenter.getDatas(getActivity(), idUser, rv);
 
         return view;
     }
 
-    private void getDatas() {
-        ApiService apiService = ApiConfig.getApiService();
-        apiService.getDataHistoriAtasan("getHistoriAtasan", idUser)
-                .enqueue(new Callback<ArrayList<PemesananModel>>() {
-                    @Override
-                    public void onResponse(Call<ArrayList<PemesananModel>> call, Response<ArrayList<PemesananModel>> response) {
-                        if (response.isSuccessful()){
-                            PemesananModels = response.body();
-                            atasanHistoriAprovalAdapter = new AtasanHistoriAprovalAdapter(getActivity(), PemesananModels);
-                            rv.setLayoutManager(new LinearLayoutManager(getActivity()));
-                            rv. setAdapter(atasanHistoriAprovalAdapter);
-                            atasanHistoriAprovalAdapter.notifyDataSetChanged();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<ArrayList<PemesananModel>> call, Throwable t) {
-                        Toast.makeText(getActivity(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
-
-                    }
-                });
-    }
 
     private void initView(View view) {
         rv = view.findViewById(R.id.rv);

@@ -77,6 +77,7 @@ public class PemesananMobilFragment extends Fragment {
 
     private String jeniskeperluanSave;
     private String jenisPemesananSave;
+    private String jenisPemesananMobilSave;
     private String kawasanSave;
     private String witelSave;
     private String areaPoolSave;
@@ -173,6 +174,7 @@ public class PemesananMobilFragment extends Fragment {
         Random r = new Random();
         int random = (r.nextInt(44) * 88);
         tvTokenPemesanan.setText("TELKOM-KBM" + random + "-" + android_id);
+        tvNamaAtasan.setText("Yani Maria Christie");
 
         myCalendar = Calendar.getInstance();
         dateBerangkat = new DatePickerDialog.OnDateSetListener() {
@@ -282,12 +284,13 @@ public class PemesananMobilFragment extends Fragment {
 
                                     }
 
-//                            spnJenisMobil.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
-//                                @Override
-//                                public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
-//                                    Toast.makeText(getActivity(), "" + item, Toast.LENGTH_SHORT).show();
-//                                }
-//                            });
+                            spnJenisMobil.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+                                @Override
+                                public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
+                                    Toast.makeText(getActivity(), "" + item, Toast.LENGTH_SHORT).show();
+                                    jenisPemesananMobilSave = item;
+                                }
+                            });
                                 }
                             }
 
@@ -372,7 +375,7 @@ public class PemesananMobilFragment extends Fragment {
                         namaPemesan,
                         jeniskeperluanSave,
                         jenisPemesananSave,
-                        "MOBIL H55609", // ini masih static
+                        jenisPemesananMobilSave,
                         kawasanSave,
                         witelSave,
                         areaPoolSave,
