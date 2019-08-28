@@ -66,14 +66,14 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <EditText
+                            android:id="@+id/edt_nik"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:id="@+id/edt_nik"
-                            android:text="12345"
-                            android:inputType="number"
+                            android:fontFamily="@font/bree_serif"
                             android:hint="NIK"
-                            android:fontFamily="@font/bree_serif"/>
+                            android:inputType="number" />
                     </com.google.android.material.textfield.TextInputLayout>
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
@@ -84,7 +84,6 @@
                             android:layout_height="wrap_content"
                             android:id="@+id/edt_password"
                             android:inputType="textPassword"
-                            android:text="123"
                             android:fontFamily="@font/bree_serif"
                             android:drawableLeft="@drawable/ic_vpn_key_black_24dp"
                             android:hint="Password"/>

@@ -70,6 +70,9 @@ dependencies {
     //untuk animasi
     implementation 'com.airbnb.android:lottie:2.2.0'
 
+    //dialog box
+    implementation 'com.yarolegovich:lovely-dialog:1.1.0'
+
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'

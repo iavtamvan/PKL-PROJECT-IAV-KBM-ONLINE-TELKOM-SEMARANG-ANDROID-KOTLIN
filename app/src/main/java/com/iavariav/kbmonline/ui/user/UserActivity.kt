@@ -27,6 +27,7 @@ import androidx.viewpager.widget.ViewPager
 
 import android.view.Menu
 import android.widget.FrameLayout
+import com.iavariav.kbmonline.ui.atasan.fragment.AprovalFragment
 
 class UserActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private var fragmentManager: FragmentManager? = null
@@ -46,7 +47,13 @@ class UserActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         navigationView.setNavigationItemSelectedListener(this)
         fragmentManager = supportFragmentManager
         fragmentManager!!.beginTransaction().replace(R.id.fm_view_pager_nav, PemesananMobilFragment()).commit()
-        supportActionBar!!.title = "Data KBM-ONLINE"
+        supportActionBar!!.title = "Daftar Yuk"
+    }
+
+    fun setData() {
+        fragmentManager = supportFragmentManager
+        fragmentManager!!.beginTransaction().replace(R.id.fm_view_pager_nav, PemesananMobilFragment()).commit()
+        supportActionBar!!.title = "Daftar Yuk"
     }
 
     override fun onBackPressed() {
@@ -84,7 +91,7 @@ class UserActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         if (id == R.id.pemesanan_mobil) {
             fragmentManager = supportFragmentManager
             fragmentManager!!.beginTransaction().replace(R.id.fm_view_pager_nav, PemesananMobilFragment()).commit()
-            supportActionBar!!.title = "Pemesanan Mobil"
+            supportActionBar!!.title = "Daftar Yuk"
         } else if (id == R.id.histori_pemesanan) {
             fragmentManager = supportFragmentManager
             fragmentManager!!.beginTransaction().replace(R.id.fm_view_pager_nav, HistoriUserFragment()).commit()

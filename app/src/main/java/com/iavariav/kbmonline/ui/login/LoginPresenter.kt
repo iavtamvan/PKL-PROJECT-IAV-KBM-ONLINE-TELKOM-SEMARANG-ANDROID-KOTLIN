@@ -61,6 +61,8 @@ class LoginPresenter {
                     override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                         if (response.isSuccessful) {
                             //                            Toast.makeText(context, "Berhasil reg id", Toast.LENGTH_SHORT).show();
+
+                            (context as LoginActivity).finishAffinity()
                         }
                     }
 

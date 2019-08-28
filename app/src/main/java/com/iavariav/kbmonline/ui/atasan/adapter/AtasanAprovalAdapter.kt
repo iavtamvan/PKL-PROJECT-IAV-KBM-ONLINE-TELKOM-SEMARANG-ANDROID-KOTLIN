@@ -1,5 +1,6 @@
 package com.iavariav.kbmonline.ui.atasan.adapter
 
+import android.app.ProgressDialog
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,7 @@ import com.iavariav.kbmonline.helper.Config
 import com.iavariav.kbmonline.model.PemesananModel
 import com.iavariav.kbmonline.rest.ApiConfig
 import com.iavariav.kbmonline.ui.atasan.AtasanActivity
+import com.yarolegovich.lovelydialog.LovelyProgressDialog
 
 import org.json.JSONException
 import org.json.JSONObject
@@ -26,10 +28,11 @@ import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-
 class AtasanAprovalAdapter(private val context: FragmentActivity?, private val PemesananModels: ArrayList<PemesananModel>) : RecyclerView.Adapter<AtasanAprovalAdapter.ViewHolder>() {
     private var id: String? = null
     private var regId: String? = null
+
+    private var progres:ProgressDialog? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.item_atasan, parent, false)
@@ -54,19 +57,24 @@ class AtasanAprovalAdapter(private val context: FragmentActivity?, private val P
 
         regId = PemesananModels[position].regid
         val jarakKm = PemesananModels[position].jarakperkm
-        //        double hitungLiter = Integer.parseInt(jarakKm)/ 11.6;
-        //        double hitugHargaBBM = hitungLiter * Integer.parseInt(PemesananModels.get(position).getBENSINPERLITER());
 
         holder.tvHargaBbm.text = "RP." + PemesananModels[position].bensinperliter
+
+        progres = ProgressDialog(context)
 
         // jika disetujui
         holder.ivDisetujui.setOnClickListener {
             //                Toast.makeText(context, "Disetujui" + PemesananModels.get(position).getIDPEMESANAN() + "id : " + id, Toast.LENGTH_SHORT).show();
-            PemesananModels[position].idpemesanan?.let { it1 -> updateDatas(it1, id, "APPROVED", "Pesanan anda disetujui Pimpinan") }
+            PemesananModels[position].idpemesanan?.let { it1 -> updateDatas(it1, id, "APPROVED", "Diisetujui Pimpinan Reg: "+ PemesananModels[position].regtokenpemesanan) }
+            progres!!.setMessage("Tunggu yaaa...")
+            progres!!.show()
         }
 
         // jika ditolak
-        holder.ivDitolak.setOnClickListener { PemesananModels[position].idpemesanan?.let { it1 -> updateDatas(it1, id, "NOT APROVVED", "Pesanan anda ditolak oleh Pimpinan") } }
+        holder.ivDitolak.setOnClickListener { PemesananModels[position].idpemesanan?.let { it1 -> updateDatas(it1, id, "NOT APROVVED", "Ditolak oleh Pimpinan Reg: "+ PemesananModels[position].regtokenpemesanan) }
+            progres!!.setMessage("Tunggu yaaa...")
+            progres!!.show()
+        }
 
 
     }
@@ -80,6 +88,7 @@ class AtasanAprovalAdapter(private val context: FragmentActivity?, private val P
                             try {
                                 val jsonObject = JSONObject(response.body()!!.string())
                                 Config.pushNotif(context, "Status Pemesanan", message, "individual", regId)
+                                progres!!.hide()
                                 (context as AtasanActivity).setData()
                             } catch (e: JSONException) {
                                 e.printStackTrace()

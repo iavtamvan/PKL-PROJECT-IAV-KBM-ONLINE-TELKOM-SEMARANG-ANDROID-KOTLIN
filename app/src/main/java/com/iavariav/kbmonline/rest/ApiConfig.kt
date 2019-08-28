@@ -11,7 +11,10 @@ object ApiConfig {
     val apiService: ApiService
         get() {
             val retrofit = Retrofit.Builder()
+//                    .baseUrl("http://192.168.43.182/~mac/kbm_online/")
                     .baseUrl("http://192.168.43.182/~mac/kbm_online/")
+//                    .baseUrl("https://damarjati.upgris.ac.id/api_iav/kbm_online/")
+//                    .baseUrl("http://sig.upgris.ac.id/api_iav/kbm_online/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()
 

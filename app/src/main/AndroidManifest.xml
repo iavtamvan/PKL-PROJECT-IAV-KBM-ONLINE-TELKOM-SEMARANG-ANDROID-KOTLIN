@@ -36,11 +36,11 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <service android:name=".service.MyFirebaseInstanceIDService">
-            <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
-            </intent-filter>
-        </service>
+        <!--<service android:name=".service.MyFirebaseInstanceIDService">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="com.google.firebase.INSTANCE_ID_EVENT" />-->
+            <!--</intent-filter>-->
+        <!--</service>-->
 
 
         <meta-data
@@ -48,7 +48,7 @@
             android:resource="@array/preloaded_fonts" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAI-r3BAcK8XGDr4uxNfZRq9g1wjQEUULE"/>
+            android:value="AIzaSyCRYz8BxCxqQ8-51X-zUhgMSW-F7_9egHM"/>
     </application>
 
 </manifest>

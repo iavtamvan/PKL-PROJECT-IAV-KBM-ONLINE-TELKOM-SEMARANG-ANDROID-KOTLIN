@@ -65,6 +65,11 @@ class AtasanActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         fragmentManager!!.beginTransaction().replace(R.id.fm_view_pager_nav, AprovalFragment()).commit()
         supportActionBar!!.title = "Data KBM-ONLINE"
     }
+    fun setDaftarUser() {
+        fragmentManager = supportFragmentManager
+        fragmentManager!!.beginTransaction().replace(R.id.fm_view_pager_nav, DaftarUserFragment()).commit()
+        supportActionBar!!.title = "Daftar User"
+    }
 
     override fun onBackPressed() {
         val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)

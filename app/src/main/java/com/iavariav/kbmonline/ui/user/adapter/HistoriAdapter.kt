@@ -1,6 +1,8 @@
 package com.iavariav.kbmonline.ui.user.adapter
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -45,6 +47,13 @@ class HistoriAdapter(private val context: FragmentActivity?, private val Pemesan
 
         holder.tvHargaBbm.text = "RP." + PemesananModels[position].bensinperliter
 
+        holder.tvTujuan.setOnClickListener {
+            val navigationIntentUri = Uri.parse("google.navigation:q=" + PemesananModels[position].lattujuan +"," + PemesananModels[position].longtujuan)//creating intent with latlng
+            val mapIntent = Intent(Intent.ACTION_VIEW, navigationIntentUri)
+            mapIntent.setPackage("com.google.android.apps.maps")
+            context?.startActivity(mapIntent)
+        }
+
 
     }
 
@@ -83,6 +92,8 @@ class HistoriAdapter(private val context: FragmentActivity?, private val Pemesan
             tvKeternangan = itemView.findViewById(R.id.tv_keternangan)
             tvHargaBbm = itemView.findViewById(R.id.tv_harga_bbm)
             tvStatus = itemView.findViewById(R.id.tv_status)
+
+
         }
     }
 }

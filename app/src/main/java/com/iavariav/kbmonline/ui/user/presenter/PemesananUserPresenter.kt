@@ -14,6 +14,13 @@ import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import android.R
+import android.view.View
+import com.iavariav.kbmonline.ui.atasan.AtasanActivity
+import com.iavariav.kbmonline.ui.user.UserActivity
+import com.yarolegovich.lovelydialog.LovelyStandardDialog
+
+
 
 class PemesananUserPresenter {
 
@@ -85,6 +92,24 @@ class PemesananUserPresenter {
                                 val jsonObject = JSONObject(response.body()!!.string())
                                 val error = jsonObject.optString("error_msg")
                                 Toast.makeText(context, "" + error, Toast.LENGTH_SHORT).show()
+                                LovelyStandardDialog(context, LovelyStandardDialog.ButtonLayout.VERTICAL)
+                                        .setTopColorRes(R.color.holo_red_light)
+                                        .setButtonsColorRes(R.color.holo_red_light)
+                                        .setIcon(R.drawable.stat_sys_upload_done)
+                                        .setTitle("Sukses Daftar")
+                                        .setMessage("Mohon tunggu persetujuan...")
+                                        .setPositiveButton(android.R.string.ok, object : View.OnClickListener {
+                                            override fun onClick(v: View) {
+                                                Toast.makeText(context, "Ok Makasih", Toast.LENGTH_SHORT).show()
+                                                (context as UserActivity).setData()
+                                            }
+                                        })
+                                        .setNegativeButton("", View.OnClickListener {
+                                            Toast.makeText(context, "Ok Makasih", Toast.LENGTH_SHORT).show()
+                                            (context as UserActivity).setData()
+                                        })
+                                        .show()
+
                             } catch (e: JSONException) {
                                 e.printStackTrace()
                             } catch (e: IOException) {

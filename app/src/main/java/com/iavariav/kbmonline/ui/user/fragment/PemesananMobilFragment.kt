@@ -222,7 +222,7 @@ class PemesananMobilFragment : Fragment() {
                                 mobilModels = response.body()
                                 Toast.makeText(activity, "" + mobilModels!!, Toast.LENGTH_SHORT).show()
                                 for (i in mobilModels!!.indices) {
-                                    spnJenisMobil!!.setItems<String>(mobilModels!![i].typemobil + " " + mobilModels!![i].platmobil)
+                                    spnJenisMobil!!.setItems<String>(mobilModels!![i].platmobil + " " + mobilModels!![i].namasupir)
 
                                 }
 
@@ -323,7 +323,7 @@ class PemesananMobilFragment : Fragment() {
                     val place = PlacePicker.getPlace(activity!!, data!!)
                     placeNameAdress = String.format("%s", place.address)
                     placeName = String.format("%s", place.name)
-                    latitudeTujuan = place.latLng.latitude
+                        latitudeTujuan = place.latLng.latitude
                     longitudeTUjuan = place.latLng.longitude
 
                     //                    tvAlamatDetail.setText(placeName + ", " + placeNameAdress);

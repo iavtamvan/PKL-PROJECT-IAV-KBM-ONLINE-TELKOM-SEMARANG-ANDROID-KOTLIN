@@ -12,9 +12,12 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.iid.FirebaseInstanceId
 
 import com.google.firebase.messaging.FirebaseMessaging
 import com.iavariav.kbmonline.BuildConfig
@@ -43,6 +46,22 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
         initView()
         supportActionBar!!.hide()
+
+        FirebaseInstanceId.getInstance().instanceId
+                .addOnCompleteListener(OnCompleteListener { task ->
+                    if (!task.isSuccessful) {
+                        Log.w(TAG, "getInstanceId failed", task.exception)
+                        return@OnCompleteListener
+                    }
+
+                    // Get new Instance ID token
+                    val token = task.result?.token
+                    val pref = applicationContext.getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE)
+                    val editor = pref.edit()
+                    editor.putString("regId", token)
+                    editor.apply()
+//                    edtNik?.setText(token)
+                })
         loginPresenter = LoginPresenter()
         methodRequiresTwoPermission()
         tvVersion!!.text = "Version apps " + BuildConfig.VERSION_CODE + " (build " + BuildConfig.VERSION_NAME + ")"
@@ -50,28 +69,9 @@ class LoginActivity : AppCompatActivity() {
             loginPresenter!!.login(this@LoginActivity,
                     edtNik!!.text.toString().trim { it <= ' ' },
                     edtPassword!!.text.toString().trim { it <= ' ' })
-            finishAffinity()
+//            loginPresenter!!.login(this, "12345","123")
         }
 
-        displayFirebaseRegId()
-        mRegistrationBroadcastReceiver = object : BroadcastReceiver() {
-            override fun onReceive(context: Context, intent: Intent) {
-
-                // checking for type intent filter
-                if (intent.action == Config.REGISTRATION_COMPLETE) {
-                    // gcm successfully registered
-                    // now subscribe to `global` topic to receive app wide notifications
-                    FirebaseMessaging.getInstance().subscribeToTopic(Config.TOPIC_GLOBAL)
-
-                    displayFirebaseRegId()
-
-                } else if (intent.action == Config.PUSH_NOTIFICATION) {
-                    // new push notification is received
-
-                    val message = intent.getStringExtra("message")
-                }
-            }
-        }
     }
 
 
@@ -86,36 +86,6 @@ class LoginActivity : AppCompatActivity() {
             EasyPermissions.requestPermissions(this, getString(R.string.app_name),
                     RC_CAMERA_AND_LOCATION, *perms)
         }
-    }
-
-
-    override fun onResume() {
-        super.onResume()
-
-        // register GCM registration complete receiver
-        LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver!!,
-                IntentFilter(Config.REGISTRATION_COMPLETE))
-
-        // register new push message receiver
-        // by doing this, the activity will be notified each time a new message arrives
-        LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver!!,
-                IntentFilter(Config.PUSH_NOTIFICATION))
-
-        // clear the notification area when the app is opened
-        NotificationUtils.clearNotifications(applicationContext)
-    }
-
-    override fun onPause() {
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(mRegistrationBroadcastReceiver!!)
-        super.onPause()
-    }
-
-    // Fetches reg id from shared preferences
-    // and displays on the screen
-    private fun displayFirebaseRegId() {
-        val pref = applicationContext.getSharedPreferences(Config.SHARED_PREF_NAME, 0)
-        regId = pref.getString("regId", null)
-        Log.e(TAG, "Firebase reg id: " + regId!!)
     }
 
 

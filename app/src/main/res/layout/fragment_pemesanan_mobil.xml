@@ -269,7 +269,7 @@
                             <EditText
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:hint="Isi Penjemputan"
+                                android:hint="Isi Penumpang"
                                 android:id="@+id/edt_isi_penumpang"
                                 android:fontFamily="@font/bree_serif"/>
                         </com.google.android.material.textfield.TextInputLayout>
